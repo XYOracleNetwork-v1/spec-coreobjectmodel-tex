@@ -161,3 +161,21 @@ Name | Size | Type
 Major | 1 Byte | Byte
 Minor | 1 Byte | Byte
 Payload | Variable | Specified in the Major and Minor
+
+## 0x10 (Strong Array with Int Size and Byte Number)
+A strong array with size is used when there is an array with the same type, but the type has variable size (e.g. origin chain).
+
+**Header**
+
+Name | Size | Type
+--- | --- | ---
+Size | 4 Bytes | Unsigned Int
+Major | 1 Byte | Byte
+Minor | 1 Byte | Byte
+Number of Elements | 1 Byte | Unsigned Byte
+
+**Array Element**
+
+Name | Size | Type
+--- | --- | ---
+Payload | Variable | Specified in Header wth the Major and Minor
