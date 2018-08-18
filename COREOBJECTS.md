@@ -23,7 +23,7 @@ Name | Size | Type
 Keys | Variable |  Array(0x07) `Encoded Public Key Object`
 
 ## 0x03 (Payload)
-A group of keys in the XYO Network.
+Heuristics in the XYO Network.
 
 **Structure**
 
