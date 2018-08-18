@@ -29,4 +29,4 @@ A group of keys in the XYO Network.
 
 Name | Size | Type
 --- | --- | ---
-Heuristics | Variable |  Array(0x10) `Encoded Public Key Object`
+Heuristics | Variable |  Array(0x10) 
