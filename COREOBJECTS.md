@@ -9,7 +9,6 @@ Name | Size | Type
 --- | --- | ---
 Size | 4 Bytes | Unsigned Int
 Keys | Variable |  Array(0x06) `Keyset`
-Payloads Hash | Variable |  Array(0x06) `Hash`
 Payloads | Variable |  Array(0x10) `Payload`
 Signatures | Variable |  Array(0x06) `Signatures`
 
@@ -29,4 +28,5 @@ Heuristics in the XYO Network.
 
 Name | Size | Type
 --- | --- | ---
-Heuristics | Variable |  Array(0x10) 
+Signed Heuristics | Variable |  Array(0x10) 
+Unsigned Heuristics | Variable |  Array(0x10) 
