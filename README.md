@@ -1,4 +1,4 @@
-# sdk-coreobjectmodel-json
+# sdk-coreobjectmodel-md
 
 Name | Major
 --- | --- |
