@@ -11,12 +11,14 @@ All Public Key Cryptography types.
 **Structure**
 
 **Public Key**
+
 Name | Size | Type
 --- | --- | ---
 Point X| 32 Bytes |  ByteArray
 Point Y| 32 Bytes |  ByteArray
 
 **Signature**
+
 Name | Size | Type
 --- | --- | ---
 Signature Size | 1 Byte |  ByteArray
@@ -37,6 +39,7 @@ Point Y | 1 Byte |  ByteArray
 Point X | 32 Bytes |  ByteArray
 
 **Signature**
+
 Name | Size | Type
 --- | --- | ---
 Signature Size | 1 Byte |  ByteArray
