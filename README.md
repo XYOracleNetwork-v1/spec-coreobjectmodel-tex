@@ -12,3 +12,4 @@ Name | Major
 [Core Objects](https://github.com/XYOracleNetwork/sdk-coreobjectmodel-json/blob/master/coreObjects.md) | 0x02
 [Hashes](https://github.com/XYOracleNetwork/sdk-coreobjectmodel-md/blob/master/hashes.md) | 0x03
 [Public Key Cryptography](https://github.com/XYOracleNetwork/sdk-coreobjectmodel-md/blob/master/publicKeyCryptography.md) | 0x04
+**Custum** | 0xff
