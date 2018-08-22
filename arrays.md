@@ -162,7 +162,7 @@ Major | 1 Byte | Byte
 Minor | 1 Byte | Byte
 Payload | Variable | Specified in the Major and Minor
 
-## 0x10 (Strong Array with Int Size and Byte Number)
+## 0x0a (Strong Array with Int Size and Byte Number)
 A strong array with size is used when there is an array with the same type, but the type has variable size (e.g. origin chain).
 
 **Header**
