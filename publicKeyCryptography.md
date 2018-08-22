@@ -1,8 +1,8 @@
-# 0x04 (Public Key Cryptography)
-All Public Key Cryptography types.
+# 0x04, 0x05 (Public Key Cryptography)
+All Public Key Cryptography types. All public keys have a major of `0x04`, and all signatures have a major of `0x05`
 
 ## 0x01 (ECDSA (secp256k1) with SHA256)
-**Keypair Algorithm:** EC, Un Compressed (0x04 not prefixed because this is infered). 
+**Keypair Algorithm:** EC, Uncompressed (0x04 not prefixed because this is infered). 
 
 **Curve:** secp256k1
 

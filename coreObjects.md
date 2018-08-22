@@ -1,5 +1,5 @@
 # 0x02 (Core Objects)
-Arrays are used when there is an unkown number of elements in a payload.
+Arrays are used when there is an unknown number of elements in a payload.
 ## 0x01 (Bound Witness)
 A bound witness in the XYO Network.
 
