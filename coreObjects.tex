@@ -65,6 +65,43 @@ Unsigned Heuristics & Array(0x06) & An multi-typed array of heuristics\\
 \hline
 \end{tabular}
 \end{center}
+\subsubsection*{Index (0x05)}
+The index in an origin block.
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Index & Unsigned integer & the index in the origin chain\\  
+\hline
+\end{tabular}
+\end{center}
+\subsubsection*{Previous Hash (0x06)}
+The previous hash in an origin chain.
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Hash Type Major & Byte & Hash Type \\ 
+Hash Type Minor & Byte & Hash Type\\ 
+Hash & Inferred above & the previous hash\\  
+\hline
+\end{tabular}
+\end{center}
+\subsubsection*{Next Public Key (0x07)}
+The next public key to use in an origin chain.
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Public Key Type Major & Byte & Public Key Type \\ 
+Public Key Type Minor & Byte & Public Key Type\\ 
+Next Public Key & Inferred above & The next public key in an origin chain.\\  
+\hline
+\end{tabular}
+\end{center}
 
 \end{document}
 
