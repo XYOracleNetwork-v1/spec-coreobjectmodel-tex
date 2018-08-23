@@ -8,8 +8,9 @@ Types act as identifiers for certain objects and interpretations for binary data
 
 Name | Major
 --- | --- |
-[Arrays](https://github.com/XYOracleNetwork/sdk-coreobjectmodel-json/blob/master/arrays.md) | 0x01
-[Core Objects](https://github.com/XYOracleNetwork/sdk-coreobjectmodel-json/blob/master/coreObjects.md) | 0x02
-[Hashes](https://github.com/XYOracleNetwork/sdk-coreobjectmodel-md/blob/master/hashes.md) | 0x03
-[Public Key Cryptography](https://github.com/XYOracleNetwork/sdk-coreobjectmodel-md/blob/master/publicKeyCryptography.md) | 0x04, 0x05
+[Arrays](https://github.com/XYOracleNetwork/spec-coreobjectmodel-tex/blob/master/arrays.pdf) | 0x01
+[Core Objects](https://github.com/XYOracleNetwork/spec-coreobjectmodel-tex/blob/master/coreObjects.pdf) | 0x02
+[Hashes](https://github.com/XYOracleNetwork/spec-coreobjectmodel-tex/blob/master/hashes.pdf) | 0x03
+[Public Keys](https://github.com/XYOracleNetwork/spec-coreobjectmodel-tex/blob/master/publicKeys.pdf) | 0x04
+[Signatures](https://github.com/XYOracleNetwork/spec-coreobjectmodel-tex/blob/master/signatures.pdf) | 0x05
 **Custum** | 0xff
