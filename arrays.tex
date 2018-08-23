@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+
+\usepackage{float}
+\title{XYO Network Encodings: Arrays}
+\author{0x01}
+\date{August, 2018}
+\begin{document}
+\maketitle
+
+\section{Single Element Array}
+A weak array is used when there is an array with different types (e.g. heuristics).
+\subsection{Byte Size Array Header (0x01)}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Total Size & Unsigned Byte & Size of Entire Array\\  
+Type Major & Byte & Type Major of the element\\  
+Type Minor & Byte & Type Minor of the element\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Short Size Array Header (0x02)}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Total Size & Unsigned Short & Size of Entire Array\\  
+Type Major & Byte & Type Major of the element\\  
+Type Minor & Byte & Type Minor of the element\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Int Size Array Header (0x03)}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Total Size & Unsigned Int & Size of Entire Array\\  
+Type Major & Byte & Type Major of the element\\  
+Type Minor & Byte & Type Minor of the element\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Array Element}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Element & Indicated in Header & An element in the array\\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Multi Element Array}
+A Multi Element Array is used when there is an array with the same type (e.g. an origin chain).
+\subsection{Byte Size Array Header (0x04)}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Total Size & Unsigned Byte & Size of Entire Array\\  
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Short Size Array Header (0x05)}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Total Size & Unsigned Short & Size of Entire Array\\  
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Int Size Array Header (0x06)}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Total Size & Unsigned Int & Size of Entire Array\\  
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Array Element}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Type Major & Byte & Type Major of the element\\  
+Type Minor & Byte & Type Minor of the element\\
+Element & Indicated Above & An element in the array\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\end{document}
+
+	
