@@ -7,7 +7,7 @@
 \begin{document}
 \maketitle
 
-\section{ECDSA secp256k1 (0x01)}
+\section{ECDSA}
 
 \begin{center}
 \begin{tabular}{ |l|l|l|l| } 
@@ -15,10 +15,28 @@
 \textbf{Name} & \textbf{Type} & \textbf{Description}\\
 \hline
 Total Size & Unsigned Byte & Total size of signature. \\
-Signature & Array$<Byte>$ & ECDSA Signature with the secp256k1 curve.\\ 
+Signature & Array$<Byte>$ & ECDSA Signature.\\ 
    
 \hline
 \end{tabular}
 \end{center}
 
+\subsection{secp256k1}
+\subsubsection{Sha256 (0x01)} 
+\subsubsection{Sha1 (0x02)} 
+\subsubsection{Sha3 (0x03)} 
+
+\section{RSA}
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Total Size & 2 bytes & Total size of signature. \\
+Signature & Array$<Byte>$ & RSA Signature.\\ 
+   
+\hline
+\end{tabular}
+\end{center}
+\subsection{Sha256 (0x08)} 
 \end{document}
