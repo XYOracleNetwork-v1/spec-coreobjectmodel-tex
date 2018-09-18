@@ -44,7 +44,7 @@ A set of signatures for a single party.
 \hline
 \textbf{Name} & \textbf{Type} & \textbf{Description}\\
 \hline
-Signatures & Array(0x05) & A untyped array of signatures.\\  
+Signatures & Array(0x05) & A multi-typed array of signatures.\\  
  
 \hline
 \end{tabular}
@@ -65,7 +65,7 @@ Unsigned Heuristics & Array(0x06) & An multi-typed array of heuristics\\
 \hline
 \end{tabular}
 \end{center}
-\subsubsection*{Index (0x05)}
+\section{Index (0x05)}
 The index in an origin block.
 \begin{center}
 \begin{tabular}{ |l|l|l|l| } 
@@ -76,7 +76,7 @@ Index & Unsigned integer & the index in the origin chain\\
 \hline
 \end{tabular}
 \end{center}
-\subsubsection*{Previous Hash (0x06)}
+\section{Previous Hash (0x06)}
 The previous hash in an origin chain.
 \begin{center}
 \begin{tabular}{ |l|l|l|l| } 
@@ -89,7 +89,7 @@ Hash & Inferred above & the previous hash\\
 \hline
 \end{tabular}
 \end{center}
-\subsubsection*{Next Public Key (0x07)}
+\section{Next Public Key (0x07)}
 The next public key to use in an origin chain.
 \begin{center}
 \begin{tabular}{ |l|l|l|l| } 
@@ -102,6 +102,86 @@ Next Public Key & Inferred above & The next public key in an origin chain.\\
 \hline
 \end{tabular}
 \end{center}
+
+\section{Origin Block(s) Hash Set (0x08)}
+A set of hashes that point to origin blocks.
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Hashes & Array(0x05) & A multi-element array of hashes.\\  
+ 
+\hline
+\end{tabular}
+\end{center}
+
+\section{Origin Block Set (0x09)}
+A set of origin blocks.
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Blocks & Array(0x03) & A single-element array of bound witnesses.\\  
+ 
+\hline
+\end{tabular}
+\end{center}
+
+\section{Bound Witness Transfer (0x0a)}
+Data being sent when creating a bound witness.
+
+\subsection{Header}
+\begin{center}
+
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Size & 4 bytes & size of the Bound Witness Transfer.\\  
+Stage & Byte & The stage of the Bound Witness Transfer.\\  
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Stage: 0x01}
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Public Keys & Array(0x02)$<KeySet>$ & Transferring KeySets. \\  
+Payloads & Array(0x03)$<Payload>$  & Transferring payloads.\\  
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Stage: 0x02}
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline
+Public Keys & Array(0x02)$<KeySet>$ & Transferring KeySets. \\  
+Payloads & Array(0x03)$<Payload>$  & Transferring payloads.\\  
+Signatures & Array(0x02)$<SignatureSet>$ & Transferring SignatureSets.\\  
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Stage: 0x03}
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Type} & \textbf{Description}\\
+\hline 
+Signatures & Array(0x02)$<SignatureSet>$ & Transferring SignatureSets.\\  
+\hline
+\end{tabular}
+\end{center}
+
+
 
 \end{document}
 
