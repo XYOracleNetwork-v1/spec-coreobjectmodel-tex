@@ -15,7 +15,6 @@ A bound witness in the XYO Network.
 \hline
 \textbf{Name} & \textbf{Type} & \textbf{Description}\\
 \hline
-Total Size & Unsigned Int & Size of Entire Bound Witness\\  
 Public Keys & Array(0x02)$<KeySet>$ & A keyset for every party in the bound witness. \\  
 Payloads & Array(0x03)$<Payload>$  & A payload for every party in the bound witness.\\  
 Signatures & Array(0x02)$<SignatureSet>$ & A SignatureSet for every party in the bound witness.\\  
@@ -57,7 +56,6 @@ A payload contains a set of unsigned and signed Heuristics.
 \hline
 \textbf{Name} & \textbf{Type} & \textbf{Description}\\
 \hline
-Total Size & Unsigned Int & Total size of Payload \\ 
 Signed Heuristics & Array(0x06) & An multi-typed array of heuristics\\  
 Unsigned Heuristics & Array(0x06) & An multi-typed array of heuristics\\  
 
@@ -83,9 +81,7 @@ The previous hash in an origin chain.
 \hline
 \textbf{Name} & \textbf{Type} & \textbf{Description}\\
 \hline
-Hash Type Major & Byte & Hash Type \\ 
-Hash Type Minor & Byte & Hash Type\\ 
-Hash & Inferred above & the previous hash\\  
+Hash & Any & The previous hash\\  
 \hline
 \end{tabular}
 \end{center}
@@ -96,9 +92,7 @@ The next public key to use in an origin chain.
 \hline
 \textbf{Name} & \textbf{Type} & \textbf{Description}\\
 \hline
-Public Key Type Major & Byte & Public Key Type \\ 
-Public Key Type Minor & Byte & Public Key Type\\ 
-Next Public Key & Inferred above & The next public key in an origin chain.\\  
+Next Public Key & Any & The next public key in an origin chain.\\  
 \hline
 \end{tabular}
 \end{center}
@@ -129,61 +123,8 @@ Blocks & Array(0x03) & A single-element array of bound witnesses.\\
 \end{tabular}
 \end{center}
 
-\section{Bound Witness Transfer (0x0a)}
-Data being sent when creating a bound witness.
-
-\subsection{Header}
-\begin{center}
-
-\begin{tabular}{ |l|l|l|l| } 
-\hline
-\textbf{Name} & \textbf{Type} & \textbf{Description}\\
-\hline
-Size & 4 bytes & size of the Bound Witness Transfer.\\  
-Stage & Byte & The stage of the Bound Witness Transfer.\\  
-\hline
-\end{tabular}
-\end{center}
-
-\subsection{Stage: 0x01}
-\begin{center}
-\begin{tabular}{ |l|l|l|l| } 
-\hline
-\textbf{Name} & \textbf{Type} & \textbf{Description}\\
-\hline
-Public Keys & Array(0x02)$<KeySet>$ & Transferring KeySets. \\  
-Payloads & Array(0x03)$<Payload>$  & Transferring payloads.\\  
-\hline
-\end{tabular}
-\end{center}
-
-\subsection{Stage: 0x02}
-\begin{center}
-\begin{tabular}{ |l|l|l|l| } 
-\hline
-\textbf{Name} & \textbf{Type} & \textbf{Description}\\
-\hline
-Public Keys & Array(0x02)$<KeySet>$ & Transferring KeySets. \\  
-Payloads & Array(0x03)$<Payload>$  & Transferring payloads.\\  
-Signatures & Array(0x02)$<SignatureSet>$ & Transferring SignatureSets.\\  
-\hline
-\end{tabular}
-\end{center}
-
-\subsection{Stage: 0x03}
-\begin{center}
-\begin{tabular}{ |l|l|l|l| } 
-\hline
-\textbf{Name} & \textbf{Type} & \textbf{Description}\\
-\hline 
-Signatures & Array(0x02)$<SignatureSet>$ & Transferring SignatureSets.\\  
-\hline
-\end{tabular}
-\end{center}
 
 
-
-\end{document}
 
 \end{document}
 

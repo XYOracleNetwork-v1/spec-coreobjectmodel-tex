@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+
+\usepackage{float}
+\title{XYO Network Encoding Scheme}
+\date{August, 2018}
+\begin{document}
+\maketitle
+
+
+\section{Overview}
+Everything that is encoded is a superset of an \textit{Object}. An object is defined by having an object header. There are two types of objects, base objects and array objects.
+
+\subsection{Base Objects}
+Everything is a base object. A base object is defined by having an object header (see section 2).
+
+\subsection{Array Objects}
+An array object is a superset of a base object, but can have child objects. 
+
+\section{Object Header}
+A header to be placed before every object.
+
+\subsection{Size Identifier Size (2 bits)}
+2 bits placed at the beginning of the header to indicate how to read the size of the payload.
+
+\subsubsection{00b and 01b}
+This indicates to read the major (the next 6 bits) to use as the size of entire payload. 
+
+\subsubsection{10b}
+This indicates to read 2 bytes after the minor to obtain the size. 
+
+
+\subsubsection{11b}
+This indicates to read 4 bytes after the minor to obtain the size. 
+
+
+\subsection{Major (6 bits)}
+Used as an ID for the value/payload. If the Size Identifier Size is 00b or 01b then the major must be the size of the value/payload.
+
+\subsection{Minor (1 byte)}
+Used as a secondary ID for the value/payload.
+
+\subsection{Size (2 or 4 bytes)}
+Used to indicate the size (in bytes) of the value/payload. This is only included in the header if the Size Identifier Size is 10b or 11b. The size is always unsigned and includes itself.
+
+\begin{center}
+\begin{tabular}{ |l|l| } 
+\hline
+\textbf{Size Identifier Size} & \textbf{Value}\\
+\hline
+00b & None \\  
+01b & None \\  
+10b & 2 Bytes (Short) \\  
+11b & 4 Bytes (Int) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Examples}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Value} & \textbf{Description}\\
+\hline
+Size identifier size & 00b & A 2 bit description of the size.\\  
+Major & 000001b & The major of the item.\\ 
+Minor & 0x1a & The minor of the item.\\ 
+Value & 0x33 & The value is 1 byte because of the major.\\ 
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Value} & \textbf{Description}\\
+\hline
+Size identifier size & 01b & A 2 bit description of the size.\\  
+Major & 000001b & The major of the item.\\ 
+Minor & 0x2a & The minor of the item.\\ 
+Value & 0x23 & The value is 1 byte because of the major.\\ 
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Value} & \textbf{Description}\\
+\hline
+Size identifier size & 10b & A 2 bit description of the size.\\  
+Major & 000011b & The major of the item.\\ 
+Minor & 0x2b & The minor of the item.\\ 
+Size & 0x00,0x05 & The minor of the item.\\ 
+Value & 0x01,0x02,0x03 & The value is 1 byte because of the major.\\ 
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+\hline
+\textbf{Name} & \textbf{Value} & \textbf{Description}\\
+\hline
+Size identifier size & 11b & A 2 bit description of the size.\\  
+Major & 000011b & The major of the item.\\ 
+Minor & 0x2b & The minor of the item.\\ 
+Size & 0x00,0x00,0x00,0x04 & The minor of the item.\\ 
+Value & 0x13,0x37 & The value is 1 byte because of the major.\\ 
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
