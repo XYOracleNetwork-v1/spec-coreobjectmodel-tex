@@ -2,113 +2,130 @@
 
 \usepackage{float}
 \title{XYO Network Encoding Scheme}
-\date{August, 2018}
+
+\date{November, 2018}
 \begin{document}
 \maketitle
 
 
 \section{Overview}
-Everything that is encoded is a superset of an \textit{Object}. An object is defined by having an object header. There are two types of objects, base objects and array objects.
+Everything that is encoded is a superset of an \textit{Object}. An object is defined by having an object header that contains information about how to unpack that object. This information includes how to read the size of the object, if the object is Iterable (typed and untyped), and the ID of the object.
 
-\subsection{Base Objects}
-Everything is a base object. A base object is defined by having an object header (see section 2).
-
-\subsection{Array Objects}
-An array object is a superset of a base object, but can have child objects. 
+\section{Object Structure}
+\begin{center}
+\begin{tabular}{ |l|l| } 
+\hline
+\textbf{Name} & \textbf{Description}\\
+\hline
+Object Header & Info about the object and size \\   
+Size & Size of the object \\  
+Payload & The raw contents of the object. \\  
+\hline
+\end{tabular}
+\end{center}
 
 \section{Object Header}
-A header to be placed before every object.
-
-\subsection{Size Identifier Size (2 bits)}
-2 bits placed at the beginning of the header to indicate how to read the size of the payload.
-
-\subsubsection{00b and 01b}
-This indicates to read the major (the next 6 bits) to use as the size of entire payload. 
-
-\subsubsection{10b}
-This indicates to read 2 bytes after the minor to obtain the size. 
-
-
-\subsubsection{11b}
-This indicates to read 4 bytes after the minor to obtain the size. 
-
-
-\subsection{Major (6 bits)}
-Used as an ID for the value/payload. If the Size Identifier Size is 00b or 01b then the major must be the size of the value/payload.
-
-\subsection{Minor (1 byte)}
-Used as a secondary ID for the value/payload.
-
-\subsection{Size (2 or 4 bytes)}
-Used to indicate the size (in bytes) of the value/payload. This is only included in the header if the Size Identifier Size is 10b or 11b. The size is always unsigned and includes itself.
+The object header is prepended to every object to obtain information about the object. This is broken into two primary sections, the encoding catalogue and ID. 
 
 \begin{center}
 \begin{tabular}{ |l|l| } 
 \hline
-\textbf{Size Identifier Size} & \textbf{Value}\\
+\textbf{Name} & \textbf{Size}\\
 \hline
-00b & None \\  
-01b & None \\  
-10b & 2 Bytes (Short) \\  
-11b & 4 Bytes (Int) \\
+Encoding catalogue & 1 Byte. \\  
+ID & 1 Byte. \\  
 \hline
 \end{tabular}
 \end{center}
 
-\subsection{Examples}
+
+\subsection{Encoding catalogue (1 Byte)}
+The encoding catalogue gives information about the size of the size and if the object is Iterable (typed and untyped).
+
+\subsubsection{Structure}
+\begin{center}
+\begin{tabular}{ |l|l| } 
+\hline
+\textbf{Size} & \textbf{Name}\\
+\hline
+2 bits & Size identifier size \\  
+1 bit &  Is Iterable \\  
+1 bit & Is a typed iterable \\  
+4 bits & Reserved for future use \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Size identifier size (2 bits)}
+These two bits are used to determine how many bytes to read to obtain the size of the object after the header of the object. The states of the Size identifier size flags are listed below. Note: \textit{All sizes include themes, are big endian, and are unsigned.}.
+ 
+\begin{center}
+\begin{tabular}{ |l|l| } 
+\hline
+\textbf{Flag} & \textbf{Name}\\
+\hline
+00b & 1 Byte Size. \\  
+01b & 2 Byte Size. \\  
+10b & 4 Byte Size.  \\  
+11b & 8 Byte Size. \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Is Iterable}
+This flag is the 3rd most significant bit. If the bit is set, the following object after the object header will be Iterable.
+
+\subsection{Is a typed iterable}
+This flag is the 4rd most significant bit. If the bit is set, the following Iterable object will only contain one header for all items in the set. For more information refer to the Iterable objects section.
+
+
+\subsection{ID (1 Byte)}
+Used as a ID for the value/payload. This value is appended to the Encoding catalogue.
+
+\section{Iterable Objects}
+Iterable Objects are objects that contain a set of child objetcs. If an object is iterable, the proper flag will be set in the object header. There are two types of iterable objects: typed iterable objects, and untyped Iterable Objects. If an iterable is typed, the proper flag will be set in the object header.
+
+\subsection{Untyped Iterable Objects}
+Untyped Iterable Objects are objects that contain a set of objects that have more than one type of header. Untyped iterable objects are created by concatenating many objects together that share one header.
+
+\subsubsection{Example Structure}
 
 \begin{center}
-\begin{tabular}{ |l|l|l|l| } 
+\begin{tabular}{ |l|l| } 
 \hline
-\textbf{Name} & \textbf{Value} & \textbf{Description}\\
+\textbf{Name} & \textbf{Description}\\
 \hline
-Size identifier size & 00b & A 2 bit description of the size.\\  
-Major & 000001b & The major of the item.\\ 
-Minor & 0x1a & The minor of the item.\\ 
-Value & 0x33 & The value is 1 byte because of the major.\\ 
-\hline
-\end{tabular}
-\end{center}
-
-\begin{center}
-\begin{tabular}{ |l|l|l|l| } 
-\hline
-\textbf{Name} & \textbf{Value} & \textbf{Description}\\
-\hline
-Size identifier size & 01b & A 2 bit description of the size.\\  
-Major & 000001b & The major of the item.\\ 
-Minor & 0x2a & The minor of the item.\\ 
-Value & 0x23 & The value is 1 byte because of the major.\\ 
+Encoding catalogue & Encoding catalogue for entire set. \\  
+ID & ID for entire set. \\  
+Size & Size of entire set. \\  
+Object 0 (With header) & The first element in the set. \\ 
+Object 1 (With header) & The second element on the set. \\ 
+Object n (With header) & The n'th object in the set. \\ 
 \hline
 \end{tabular}
 \end{center}
 
+\subsection{Typed Iterable Objects}
+Typed Iterable Objects are objects that contain a set of objects that all share the same header. Typed iterable objects are created by concatenating many objects without their header together and prepending it with the shared header. 
+
+\subsubsection{Example Structure}
+
 \begin{center}
-\begin{tabular}{ |l|l|l|l| } 
+\begin{tabular}{ |l|l| } 
 \hline
-\textbf{Name} & \textbf{Value} & \textbf{Description}\\
+\textbf{Name} & \textbf{Description}\\
 \hline
-Size identifier size & 10b & A 2 bit description of the size.\\  
-Major & 000011b & The major of the item.\\ 
-Minor & 0x2b & The minor of the item.\\ 
-Size & 0x00,0x05 & The minor of the item.\\ 
-Value & 0x01,0x02,0x03 & The value is 1 byte because of the major.\\ 
+Encoding catalogue & Encoding catalogue for entire set. \\  
+ID & ID for entire set. \\  
+Size & Size of entire set. \\  
+Shared Header & The header the objects 0-n share. \\ 
+Object 0 (No header) & The first element in the set. \\ 
+Object 1 (No header) & The second element on the set. \\ 
+Object n (No header) & The n'th object in the set. \\ 
 \hline
 \end{tabular}
 \end{center}
 
-\begin{center}
-\begin{tabular}{ |l|l|l|l| } 
-\hline
-\textbf{Name} & \textbf{Value} & \textbf{Description}\\
-\hline
-Size identifier size & 11b & A 2 bit description of the size.\\  
-Major & 000011b & The major of the item.\\ 
-Minor & 0x2b & The minor of the item.\\ 
-Size & 0x00,0x00,0x00,0x04 & The minor of the item.\\ 
-Value & 0x13,0x37 & The value is 1 byte because of the major.\\ 
-\hline
-\end{tabular}
-\end{center}
+
 
 \end{document}
