@@ -1,0 +1,13 @@
+{
+	"id": "0xff",
+	"sizeIdentifier": null,
+	"isIterable": false,
+	"isTyped": false,
+	"meta": {
+		"name": "Any data.",
+		"desc": "Any random data.",
+		"childs": [
+			
+		]
+	}
+}

@@ -8,11 +8,11 @@
 		"desc": "A EC Secp256k1 Public Key.",
 		"childs": [
 			{
-				"id": "0x0e",
+				"id": "0xff",
 				"desc": "Curve point x."
 			},
 			{
-				"id": "0x0f",
+				"id": "0xff",
 				"desc": "Curve point y."
 			}
 		]
