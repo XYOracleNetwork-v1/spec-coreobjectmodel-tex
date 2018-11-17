@@ -1,0 +1,13 @@
+{
+	"id": "0x10",
+	"sizeIdentifierSize": 1,
+	"isIterable": false,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "Stub public key.",
+		"desc": "Stub public key for testing.",
+		"childs": [
+			
+		]
+	}
+}

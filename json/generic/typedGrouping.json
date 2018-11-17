@@ -1,0 +1,13 @@
+{
+	"id": "0x14",
+	"sizeIdentifierSize": null,
+	"isIterable": true,
+	"isTypedIterable": true,
+	"meta": {
+		"name": "A set.",
+		"desc": "Typed Grouping.",
+		"childs": [
+			
+		]
+	}
+}

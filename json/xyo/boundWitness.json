@@ -1,0 +1,24 @@
+{
+	"id": "0x00",
+	"sizeIdentifierSize": null,
+	"isIterable": true,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "Bound Witness",
+		"desc": "A Bound Witness in the XYO Network.",
+		"childs": [
+			{
+				"id": "0x04",
+				"desc": "A keyset for every party in the bound witness."
+			},
+			{
+				"id": "0x04",
+				"desc": "A payload for every party in the bound witness."
+			},
+			{
+				"id": "0x04",
+				"desc": "A SignatureSet for every party in the bound witness."
+			}
+		]
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"id": "0x18",
+	"sizeIdentifierSize": 1,
+	"isIterable": true,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "GPS.",
+		"desc": "Location using GPS.",
+		"childs": [
+			{
+				"id": "0x19",
+				"desc": "Latitude"
+			},
+			{
+				"id": "0x1a",
+				"desc": "Longitude"
+			}
+		]
+	}
+}

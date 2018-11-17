@@ -1,0 +1,20 @@
+{
+	"id": "0x0d",
+	"sizeIdentifierSize": 1,
+	"isIterable": true,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "EC Secp256k1 Public Key.",
+		"desc": "A EC Secp256k1 Public Key.",
+		"childs": [
+			{
+				"id": "0x0e",
+				"desc": "Curve point x."
+			},
+			{
+				"id": "0x0f",
+				"desc": "Curve point y."
+			}
+		]
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"id": "0x05",
+	"sizeIdentifierSize": null,
+	"isIterable": true,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "Previous Hash",
+		"desc": "The previous hash in an origin chain.",
+		"childs": [
+			{
+				"id": "Any",
+				"desc": "The previous hash."
+			}
+		]
+	}
+}

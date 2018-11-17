@@ -1,0 +1,13 @@
+{
+	"id": "0x15",
+	"sizeIdentifierSize": null,
+	"isIterable": true,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "A set.",
+		"desc": "A untpyed grouping.",
+		"childs": [
+			
+		]
+	}
+}

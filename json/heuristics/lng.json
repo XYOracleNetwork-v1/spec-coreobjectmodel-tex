@@ -1,0 +1,13 @@
+{
+	"id": "0x1a",
+	"sizeIdentifierSize": 1,
+	"isIterable": false,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "Lng.",
+		"desc": "Longitude.",
+		"childs": [
+			
+		]
+	}
+}

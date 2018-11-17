@@ -1,0 +1,13 @@
+{
+	"id": "0x0e",
+	"sizeIdentifierSize": 1,
+	"isIterable": false,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "Curve point X on a EC.",
+		"desc": "Point X on a EC.",
+		"childs": [
+			
+		]
+	}
+}

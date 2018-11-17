@@ -1,0 +1,13 @@
+{
+	"id": "0x16",
+	"sizeIdentifierSize": 1,
+	"isIterable": false,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "RSSI.",
+		"desc": "Signed RSSI Byte.",
+		"childs": [
+			
+		]
+	}
+}

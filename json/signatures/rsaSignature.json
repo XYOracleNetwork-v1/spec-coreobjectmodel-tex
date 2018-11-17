@@ -1,0 +1,13 @@
+{
+	"id": "0x13",
+	"sizeIdentifierSize": 2,
+	"isIterable": false,
+	"isTypedIterable": false,
+	"meta": {
+		"name": "RSA signature.",
+		"desc": "A RSA signature with SHA256.",
+		"childs": [
+			
+		]
+	}
+}
