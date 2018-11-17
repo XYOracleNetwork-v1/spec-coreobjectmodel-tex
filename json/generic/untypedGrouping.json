@@ -1,8 +1,8 @@
 {
 	"id": "0x15",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "A set.",
 		"desc": "A untpyed grouping.",

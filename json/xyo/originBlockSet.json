@@ -1,8 +1,8 @@
 {
 	"id": "0x08",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": true,
+	"isTyped": true,
 	"meta": {
 		"name": "Origin Block Set",
 		"desc": "A set of origin blocks..",

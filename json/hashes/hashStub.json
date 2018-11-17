@@ -1,8 +1,8 @@
 {
 	"id": "0x0c",
-	"sizeIdentifierSize": 1,
+	"sizeIdentifier": 1,
 	"isIterable": false,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "A stub hash.",
 		"desc": "Hash ment for development and testing.",

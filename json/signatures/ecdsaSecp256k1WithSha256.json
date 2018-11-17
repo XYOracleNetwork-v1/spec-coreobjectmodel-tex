@@ -1,8 +1,8 @@
 {
 	"id": "0x12",
-	"sizeIdentifierSize": 1,
+	"sizeIdentifier": 1,
 	"isIterable": true,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "ECDSA Secp256k1 Signature.",
 		"desc": "ECDSA Secp256k1 Signature with SHA256.",

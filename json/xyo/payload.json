@@ -1,8 +1,8 @@
 {
 	"id": "0x03",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": true,
+	"isTyped": true,
 	"meta": {
 		"name": "Payload",
 		"desc": "A payload belonging to a party.",

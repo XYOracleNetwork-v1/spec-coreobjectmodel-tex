@@ -1,8 +1,8 @@
 {
 	"id": "0x18",
-	"sizeIdentifierSize": 1,
+	"sizeIdentifier": 1,
 	"isIterable": true,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "GPS.",
 		"desc": "Location using GPS.",

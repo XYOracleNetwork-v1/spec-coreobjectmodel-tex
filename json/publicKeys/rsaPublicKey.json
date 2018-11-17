@@ -1,8 +1,8 @@
 {
 	"id": "0x11",
-	"sizeIdentifierSize": 2,
+	"sizeIdentifier": 2,
 	"isIterable": false,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "RSA Public Key",
 		"desc": "A RSA Public key with public exponet of 0x010001",

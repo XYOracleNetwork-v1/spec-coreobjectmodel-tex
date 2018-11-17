@@ -1,8 +1,8 @@
 {
 	"id": "0x05",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "Previous Hash",
 		"desc": "The previous hash in an origin chain.",

@@ -1,8 +1,8 @@
 {
 	"id": "0x19",
-	"sizeIdentifierSize": 1,
+	"sizeIdentifier": 1,
 	"isIterable": false,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "Lat.",
 		"desc": "Latitude.",

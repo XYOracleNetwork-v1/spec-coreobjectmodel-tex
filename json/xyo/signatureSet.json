@@ -1,8 +1,8 @@
 {
 	"id": "0x02",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "SignatureSet",
 		"desc": "A set of signatures belonging to a party.",

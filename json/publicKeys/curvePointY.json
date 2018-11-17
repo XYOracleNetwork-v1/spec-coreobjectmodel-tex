@@ -1,8 +1,8 @@
 {
 	"id": "0x0f",
-	"sizeIdentifierSize": 1,
+	"sizeIdentifier": 1,
 	"isIterable": false,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "Curve point Y on a EC.",
 		"desc": "Point Y on a EC.",

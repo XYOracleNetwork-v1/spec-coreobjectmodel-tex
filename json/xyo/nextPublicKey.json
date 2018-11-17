@@ -1,8 +1,8 @@
 {
 	"id": "0x06",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "Next public key.",
 		"desc": "The next public key to be used in an origin chain.",

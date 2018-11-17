@@ -1,8 +1,8 @@
 {
 	"id": "0x07",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": true,
+	"isTyped": true,
 	"meta": {
 		"name": "Origin Block Hash Set",
 		"desc": "A set of hashes refering to origin blocks.",

@@ -1,8 +1,8 @@
 {
 	"id": "0x01",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "KeySet",
 		"desc": "A set of public keys belonging to a party..",

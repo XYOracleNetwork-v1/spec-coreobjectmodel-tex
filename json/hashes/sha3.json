@@ -1,8 +1,8 @@
 {
 	"id": "0x0b",
-	"sizeIdentifierSize": 1,
+	"sizeIdentifier": 1,
 	"isIterable": false,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "SHA 3",
 		"desc": "A SHA 3 hash.",

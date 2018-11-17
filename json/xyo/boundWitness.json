@@ -1,8 +1,8 @@
 {
 	"id": "0x00",
-	"sizeIdentifierSize": null,
+	"sizeIdentifier": null,
 	"isIterable": true,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "Bound Witness",
 		"desc": "A Bound Witness in the XYO Network.",

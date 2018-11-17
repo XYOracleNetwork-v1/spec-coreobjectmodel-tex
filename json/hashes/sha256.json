@@ -1,8 +1,8 @@
 {
 	"id": "0x09",
-	"sizeIdentifierSize": 1,
+	"sizeIdentifier": 1,
 	"isIterable": false,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "SHA 256",
 		"desc": "A SHA 256 Hash.",

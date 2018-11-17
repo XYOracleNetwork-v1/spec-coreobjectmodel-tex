@@ -1,8 +1,8 @@
 {
 	"id": "0x13",
-	"sizeIdentifierSize": 2,
+	"sizeIdentifier": 2,
 	"isIterable": false,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "RSA signature.",
 		"desc": "A RSA signature with SHA256.",

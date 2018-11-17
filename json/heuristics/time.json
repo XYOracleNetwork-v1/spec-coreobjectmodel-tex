@@ -1,8 +1,8 @@
 {
 	"id": "0x17",
-	"sizeIdentifierSize": 1,
+	"sizeIdentifier": 1,
 	"isIterable": false,
-	"isTypedIterable": false,
+	"isTyped": false,
 	"meta": {
 		"name": "Unix Time.",
 		"desc": "Unix time in milliseconds as a long.",
