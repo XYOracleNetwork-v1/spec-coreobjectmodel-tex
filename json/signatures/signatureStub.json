@@ -1,0 +1,13 @@
+{
+	"id": "0x1b",
+	"sizeIdentifier": 1,
+	"isIterable": false,
+	"isTyped": false,
+	"meta": {
+		"name": "Stub signature.",
+		"desc": "Stub signature for testing.",
+		"childs": [
+			
+		]
+	}
+}
