@@ -1,20 +1,13 @@
 {
 	"id": "0x12",
-	"sizeIdentifier": 1,
-	"isIterable": true,
+	"sizeIdentifier": [1, 2, 4, 8],
+	"isIterable": false,
 	"isTyped": false,
 	"meta": {
 		"name": "ECDSA Secp256k1 Signature.",
 		"desc": "ECDSA Secp256k1 Signature with SHA256.",
 		"childs": [
-			{
-				"id": "0xff",
-				"desc": "Curve point x."
-			},
-			{
-				"id": "0xff",
-				"desc": "Curve point y."
-			}
+
 		]
 	}
 }

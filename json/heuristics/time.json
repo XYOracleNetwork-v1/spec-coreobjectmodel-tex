@@ -1,6 +1,6 @@
 {
 	"id": "0x17",
-	"sizeIdentifier": 1,
+	"sizeIdentifier": [1, 2, 4, 8],
 	"isIterable": false,
 	"isTyped": false,
 	"meta": {

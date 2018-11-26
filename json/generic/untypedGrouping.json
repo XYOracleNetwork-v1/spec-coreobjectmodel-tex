@@ -1,13 +1,13 @@
 {
 	"id": "0x15",
-	"sizeIdentifier": null,
+	"sizeIdentifier": [1, 2, 4, 8],
 	"isIterable": true,
 	"isTyped": false,
 	"meta": {
 		"name": "A set.",
 		"desc": "A untpyed grouping.",
 		"childs": [
-			
+
 		]
 	}
 }
