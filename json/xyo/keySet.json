@@ -1,0 +1,16 @@
+{
+	"id": 4,
+	"sizeIdentifier": [1, 2, 4, 8],
+	"isIterable": true,
+	"isTyped": false,
+	"meta": {
+		"name": "KeySet",
+		"desc": "A set of public keys belonging to a party..",
+		"childs": [
+			{
+				"id": "Any",
+				"desc": "Public key."
+			}
+		]
+	}
+}

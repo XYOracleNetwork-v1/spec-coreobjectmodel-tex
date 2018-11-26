@@ -1,0 +1,13 @@
+{
+	"id": 16,
+	"sizeIdentifier": [1, 2, 4, 8],
+	"isIterable": false,
+	"isTyped": false,
+	"meta": {
+		"name": "Stub public key.",
+		"desc": "Stub public key for testing.",
+		"childs": [
+
+		]
+	}
+}

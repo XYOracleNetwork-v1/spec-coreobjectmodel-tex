@@ -1,0 +1,16 @@
+{
+	"id": 7,
+	"sizeIdentifier": [1, 2, 4, 8],
+	"isIterable": true,
+	"isTyped": true,
+	"meta": {
+		"name": "Origin Block Hash Set",
+		"desc": "A set of hashes refering to origin blocks.",
+		"childs": [
+			{
+				"id": "Any",
+				"desc": "A hash of an origin block."
+			}
+		]
+	}
+}

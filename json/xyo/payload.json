@@ -1,0 +1,20 @@
+{
+	"id": 8,
+	"sizeIdentifier": [1, 2, 4, 8],
+	"isIterable": true,
+	"isTyped": true,
+	"meta": {
+		"name": "Payload",
+		"desc": "A payload belonging to a party.",
+		"childs": [
+			{
+				"id": "0x04",
+				"desc": "Signed Payload."
+			}
+			{
+				"id": "0x04",
+				"desc": "Unsigned Payload."
+			}
+		]
+	}
+}

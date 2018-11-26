@@ -1,0 +1,16 @@
+{
+	"id": 7,
+	"sizeIdentifier": [1, 2, 4, 8],
+	"isIterable": true,
+	"isTyped": true,
+	"meta": {
+		"name": "Origin Block Set",
+		"desc": "A set of origin blocks..",
+		"childs": [
+			{
+				"id": "Any",
+				"desc": "A origin block."
+			}
+		]
+	}
+}

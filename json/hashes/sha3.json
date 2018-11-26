@@ -1,0 +1,13 @@
+{
+	"id": 18,
+	"sizeIdentifier": 1,
+	"isIterable": false,
+	"isTyped": false,
+	"meta": {
+		"name": "SHA 3",
+		"desc": "A SHA 3 hash.",
+		"childs": [
+
+		]
+	}
+}

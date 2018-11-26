@@ -1,0 +1,13 @@
+{
+	"id": 3,
+	"sizeIdentifier": 1,
+	"isIterable": false,
+	"isTyped": false,
+	"meta": {
+		"name": "Index",
+		"desc": "A unsigned Int for the index of the origin chain.",
+		"childs": [
+
+		]
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"id": 14,
+	"sizeIdentifier": [1, 2, 4, 8],
+	"isIterable": true,
+	"isTyped": false,
+	"meta": {
+		"name": "EC Secp256k1 Public Key.",
+		"desc": "A EC Secp256k1 Public Key.",
+		"childs": [
+
+		]
+	}
+}
