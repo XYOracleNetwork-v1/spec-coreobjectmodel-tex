@@ -1,5 +1,5 @@
 {
-	"id": "0x16",
+	"id": 22,
 	"sizeIdentifier": [1, 2, 4, 8],
 	"isIterable": false,
 	"isTyped": false,
@@ -7,7 +7,7 @@
 		"name": "RSSI.",
 		"desc": "Signed RSSI Byte.",
 		"childs": [
-			
+
 		]
 	}
 }

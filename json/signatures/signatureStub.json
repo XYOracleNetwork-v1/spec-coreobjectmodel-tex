@@ -1,5 +1,5 @@
 {
-	"id": "0x1b",
+	"id": 13,
 	"sizeIdentifier": 1,
 	"isIterable": false,
 	"isTyped": false,
@@ -7,7 +7,7 @@
 		"name": "Stub Signature.",
 		"desc": "Stub Signature for testing.",
 		"childs": [
-			
+
 		]
 	}
 }

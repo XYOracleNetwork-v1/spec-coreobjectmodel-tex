@@ -1,5 +1,5 @@
 {
-	"id": "0x08",
+	"id": 7,
 	"sizeIdentifier": [1, 2, 4, 8],
 	"isIterable": true,
 	"isTyped": true,

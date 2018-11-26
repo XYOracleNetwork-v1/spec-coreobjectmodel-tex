@@ -1,5 +1,5 @@
 {
-	"id": "0x0a",
+	"id": 20,
 	"sizeIdentifier": 1,
 	"isIterable": false,
 	"isTyped": false,
@@ -7,7 +7,7 @@
 		"name": "SHA 512",
 		"desc": "A SHA 512 Hash.",
 		"childs": [
-			
+
 		]
 	}
 }

@@ -1,5 +1,5 @@
 {
-	"id": "0x10",
+	"id": 16,
 	"sizeIdentifier": [1, 2, 4, 8],
 	"isIterable": false,
 	"isTyped": false,
@@ -7,7 +7,7 @@
 		"name": "Stub public key.",
 		"desc": "Stub public key for testing.",
 		"childs": [
-			
+
 		]
 	}
 }

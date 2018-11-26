@@ -1,5 +1,5 @@
 {
-	"id": "0x0c",
+	"id": 17,
 	"sizeIdentifier": 1,
 	"isIterable": false,
 	"isTyped": false,
@@ -7,7 +7,7 @@
 		"name": "A stub hash.",
 		"desc": "Hash ment for development and testing.",
 		"childs": [
-			
+
 		]
 	}
 }
