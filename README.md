@@ -20,5 +20,4 @@ Name | Major
 **Custum** | 0xff
 
 ## Credits
-Made with ❤️
-by [XYO](https://xyo.network)
+<p align="center">Made with  ❤️  by [<b>XY - The Persistent Company</b>] (https://xy.company)</p>
