@@ -1,0 +1,129 @@
+\documentclass[11pt]{article}
+\author{XYO}
+\usepackage{float}
+\usepackage{bytefield}
+
+\title{XYO Network Protocol v1.1}
+
+\date{December, 2018}
+\begin{document}
+\maketitle
+
+
+\section{Overview}
+The XYO Protocol is broken into three layers, Transport, Exchange, and Data.
+
+\section{Transport Layer}
+The transport layer determines how devices speak to each other via Bluetooth, TCP/IP,
+or other transport. All these will have a similar structures, but will have transport
+specific differences.
+
+\subsection{Bluetooth}
+
+\subsection{TCP/IP}
+
+\section{Exchange Layer}
+The exchange layer determines the packet sequencing expectations for an interaction
+between devices.  This is consistent regardless of transport.
+
+\subsection{Sequence}
+Currently, the protocol only supports two party interactions. We have a goal of multiparty 
+support in a future version.  For clarity, we will refer to the parties as 0, 1, etc...
+
+\begin{center}
+\begin{tabular}{ |l|l|l| } 
+\hline
+\textbf{Step} & \textbf{Party} & \textbf{Description}\\
+\hline
+
+1 & 0 & Version Header \\
+1 & 0 & Public Key \\
+1 & 0 & Payload \\
+2 & 1 & Public Key \\
+2 & 1 & Payload \\
+3 & 0 & Signature \\
+4 & 1 & Signature \\
+
+\hline
+\end{tabular}
+\end{center}
+
+
+\section{Data Layer}
+The data layer specifies how data blocks are interpreted by devices. 
+All numbers are passed in Big Endien.  There is no padding between items
+being passed.
+
+\subsection{Version Header}
+
+\subsubsection{Definition}
+
+  \begin{tabular}{ |l|l|l|l| } 
+  \hline
+  \textbf{Length} & \textbf{Type} & \textbf{Name} & \textbf{Value} \\
+  \hline
+  
+  1 & Unsigned & Version & Always be set to 1 \\
+  
+  \hline
+  \end{tabular}
+
+  \subsubsection{Example}
+
+  \begin{bytefield}[bitwidth=1.1em]{8}
+    \bitheader{0-7} \\
+    \bitbox{8}{0x01} \\
+  
+  \end{bytefield}
+
+\subsection{Example Sequence}
+
+\subsection{Public Key}
+
+\subsubsection{Definition}
+
+  \begin{tabular}{ |l|l|l|l| } 
+  \hline
+  \textbf{Length} & \textbf{Type} & \textbf{Name} & \textbf{Value} \\
+  \hline
+  
+  1 & Unsigned & Flags & See Object Flags \\
+  1 & Unsigned & Type & Always set to 0x01 \\
+  N & Bytes & Value & The Bytes of the Public Key \\
+  
+  \hline
+  \end{tabular}
+
+  \subsubsection{Example}
+
+  \begin{bytefield}[bitwidth=1.1em]{32}
+    \bitheader{0-31} \\
+    \bitbox{8}{Flags}
+    \bitbox{8}{0x01}
+    \bitbox[tr]{16}{Value} \\
+    \wordbox[blr]{4}{$\cdots$} \\
+  
+  \end{bytefield}
+
+\subsection{Example Sequence}
+
+\begin{bytefield}[bitwidth=1.1em]{32}
+  \bitheader{0-31} \\
+  \begin{rightwordgroup}{Step 1} \\
+      \bitbox{8}{Version} & \bitbox[tl]{16}{Public Key} & \bitbox[tr]{8}{} \\
+      \wordbox[blr]{1}{$\cdots$} \\
+      \bitbox[lr]{32}{Payload} \\
+      \wordbox[blr]{1}{$\cdots$}\\
+  \end{rightwordgroup} \\
+  \\
+
+  \bitheader{0-31} \\
+  \begin{rightwordgroup}{Step 2}
+      \bitbox{8}{Version} & \bitbox[tlr]{24}{Public Key} \\
+      \wordbox[blr]{1}{$\cdots$}
+  \end{rightwordgroup} \\
+  \\
+
+\end{bytefield}
+
+\end{document}
