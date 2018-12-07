@@ -3,15 +3,15 @@
 \usepackage{float}
 \usepackage{bytefield}
 
-\title{XYO Network Protocol v1.11}
+\title{XYO Network Interaction Protocol v1.11}
 
 \date{December, 2018}
 \begin{document}
 \maketitle
 
-
 \section{Overview}
-The XYO Protocol is broken into three layers, Transport, Exchange, and Data.
+The XYO Interaction Protocol determines how devices can interact with each other though XYO.
+The protocol is broken into three layers, Transport, Exchange, and Data.
 
 \section{Transport Layer}
 The transport layer determines how devices speak to each other via Bluetooth, TCP/IP,
@@ -20,18 +20,18 @@ specific differences.
 
 % Bluetooth Start
 \subsection{Bluetooth (BLE)}
-The Bluetooth transfer layer essentially abstracts GATT (Generic Attributes) characteristics to an input and output stream.
+The Bluetooth transfer layer essentially abstracts GATT (Generic Attributes) characteristics to an input and output stream. Both client and server can send send any data to each other.
 
 \subsubsection{Primary Service}
-This service contains 2 characteristics, a read characteristic and a write characteristic. \\
+This service contains 2 characteristics, a read characteristic and a write characteristic. The XYO Primary Service UUID indicates that a device is capable of XYO functionality. The UUIDs for the service are listed below.\\
 
 \noindent
 \textbf{XYO Primary Service UUID:} d684352e-df36-484e-bc98-2d5398c5593e \\
-\textbf{Write Characteristic UUID:} 727a3639-0eb4-4525-b1bc-7fa456490b2d \\
-\textbf{Read Characteristic UUID:} d96b6ad7-cbcb-4979-bf06-a1051edaecb4 \\
+\textbf{-- Write Characteristic UUID:} 727a3639-0eb4-4525-b1bc-7fa456490b2d \\
+\textbf{-- Read Characteristic UUID:} d96b6ad7-cbcb-4979-bf06-a1051edaecb4 \\
 
 \subsubsection{Sending Data}
-Transferring data between two XYO BLE devices consists of reading and writing to characteristics. All data is chunked into individual packets that can be reconstructed by the client or the server. When the connection is established, the client must subscribe to the read characteristic, so it can be notified when to read the servers data.
+Transferring data between two XYO BLE devices consists of reading and writing to characteristics. All data is chunked into individual packets that can be reconstructed by the client or the server. When the connection is established, the client must subscribe to the read characteristic, so it can be notified when to read the servers data. 
 
 \noindent
 \textbf{Client Sending to Server}\\
@@ -59,25 +59,25 @@ To chunk data, a device must prepend a 4 byte unsigned integer (Big Endian) with
 
 \noindent
 \begin{bytefield}[bitwidth=1.1em]{32}
-
-  \begin{rightwordgroup}{0th Packet}
-    \bitheader{0-31} \\
-    \bitbox{4}{Size}
-    \bitbox[tr]{28}{Value} \\
-    \wordbox[blr]{2}{$\cdots$} \\
-  \end{rightwordgroup} \\
-
+		
+	\begin{rightwordgroup}{0th Packet}
+		\bitheader{0-31} \\
+		\bitbox{4}{Size}
+		\bitbox[tr]{28}{Value} \\
+		\wordbox[blr]{2}{$\cdots$} \\
+	\end{rightwordgroup} \\
+		
 \end{bytefield}
 
 \noindent
 \begin{bytefield}[bitwidth=1.1em]{32}
-
-  \begin{rightwordgroup}{n Packet}
-    \bitheader{0-31} \\
-    \bitbox[lrt]{32}{Value} \\
-    \wordbox[blr]{2}{$\cdots$} \\
-  \end{rightwordgroup} \\
-
+		
+	\begin{rightwordgroup}{n Packet}
+		\bitheader{0-31} \\
+		\bitbox[lrt]{32}{Value} \\
+		\wordbox[blr]{2}{$\cdots$} \\
+	\end{rightwordgroup} \\
+		
 \end{bytefield}
 
 \noindent
@@ -96,14 +96,14 @@ To send data between nodes, a 4 byte unsigned integer (Big Endian) must be sent 
 
 \noindent
 \begin{bytefield}[bitwidth=1.1em]{32}
-
-  \begin{rightwordgroup}{TCP Packet}
-    \bitheader{0-31} \\
-    \bitbox{4}{Size}
-    \bitbox[tr]{28}{Value} \\
-    \wordbox[blr]{2}{$\cdots$} \\
-  \end{rightwordgroup} \\
-
+		
+	\begin{rightwordgroup}{TCP Packet}
+		\bitheader{0-31} \\
+		\bitbox{4}{Size}
+		\bitbox[tr]{28}{Value} \\
+		\wordbox[blr]{2}{$\cdots$} \\
+	\end{rightwordgroup} \\
+		
 \end{bytefield}
 
 \section{Exchange Layer}
@@ -115,21 +115,21 @@ Currently, the protocol only supports two party interactions. We have a goal of 
 support in a future version.  For clarity, we will refer to the parties as 0, 1, etc...
 
 \begin{center}
-  \begin{tabular}{ |l|l|l| }
-    \hline
-    \textbf{Step} & \textbf{Party} & \textbf{Description} \\
-    \hline
-
-    1             & 0              & Version Header       \\
-    1             & 0              & Public Key           \\
-    1             & 0              & Payload              \\
-    2             & 1              & Public Key           \\
-    2             & 1              & Payload              \\
-    3             & 0              & Signature            \\
-    4             & 1              & Signature            \\
-
-    \hline
-  \end{tabular}
+	\begin{tabular}{ |l|l|l| }
+		\hline
+		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
+		\hline
+				
+		1             & 0              & Version Header       \\
+		1             & 0              & Public Key           \\
+		1             & 0              & Payload              \\
+		2             & 1              & Public Key           \\
+		2             & 1              & Payload              \\
+		3             & 0              & Signature            \\
+		4             & 1              & Signature            \\
+				
+		\hline
+	\end{tabular}
 \end{center}
 
 
@@ -139,63 +139,67 @@ The data layer specifies how data blocks are interpreted by devices. All numbers
 
 \section{Object Structure}
 \begin{center}
-  \begin{tabular}{ |l|l| }
-    \hline
-    \textbf{Name} & \textbf{Description}            \\
-    \hline
-    Object Header & Info about the object and size  \\
-    Size          & Size of the object              \\
-    Payload       & The raw contents of the object. \\
-    \hline
-  \end{tabular}
+	\begin{tabular}{ |l|l| }
+		\hline
+		\textbf{Name} & \textbf{Description}            \\
+		\hline
+		Object Header & Info about the object and size  \\
+		Size          & Size of the object              \\
+		Payload       & The raw contents of the object. \\
+		\hline
+	\end{tabular}
 \end{center}
 
 \section{Object Header}
-The object header is prepended to every object to obtain information about the object. This is broken into two primary sections, the encoding catalogue and ID.
+The object header is prepended to every object to obtain information about the object. This is broken into two primary sections, the encoding catalogue and ID. \\
 
-\begin{center}
-  \begin{tabular}{ |l|l| }
-    \hline
-    \textbf{Name}      & \textbf{Size} \\
-    \hline
-    Encoding catalogue & 1 Byte.       \\
-    ID                 & 1 Byte.       \\
-    \hline
-  \end{tabular}
-\end{center}
-
+\noindent
+\begin{bytefield}[bitwidth=17.6em]{2}
+		
+	\begin{rightwordgroup}{Object \\ Header}
+				
+		\bitheader{0-1} \\
+		\bitbox{1}{ID}
+		\bitbox{1}{Encoding Catalogue}
+				    
+	\end{rightwordgroup}
+		
+\end{bytefield}
 
 \subsection{Encoding catalogue (1 Byte)}
-The encoding catalogue gives information about the size of the size and if the object is Iterable (typed and untyped).
+The encoding catalogue gives information about the size of the size and if the object is Iterable (typed and untyped).\\
 
-\subsubsection{Structure}
-\begin{center}
-  \begin{tabular}{ |l|l| }
-    \hline
-    \textbf{Size} & \textbf{Name}           \\
-    \hline
-    2 bits        & Size identifier size    \\
-    1 bit         & Is Iterable             \\
-    1 bit         & Is a typed iterable     \\
-    4 bits        & Reserved for future use \\
-    \hline
-  \end{tabular}
-\end{center}
+\noindent
+\begin{bytefield}[bitwidth=4.4em]{8}
+		
+	\begin{rightwordgroup}{Encoding \\ Catalogue \\ 8 bits}
+				
+		\bitheader{0-7} \\
+		\bitbox{2}{Size identifier size}
+		\bitbox{1}{Iterable}
+		\bitbox{1}{Typed}
+		\bitbox{4}{Reserved}
+				
+				    
+	\end{rightwordgroup}
+		
+\end{bytefield}
+
 
 \subsubsection{Size identifier size (2 bits)}
-These two bits are used to determine how many bytes to read to obtain the size of the object after the header of the object. The states of the Size identifier size flags are listed below. Note: \textit{All sizes include themes, are big endian, and are unsigned.}.
+These two bits are used to determine how many bytes to read to obtain the size of the object after the header of the object. The states of the Size identifier size flags are listed below. Note: \textit{All sizes include themes, are big endian, and are unsigned.}
 
 \begin{center}
-  \begin{tabular}{ |l|l| }
-    \hline
-    \textbf{Flag} & \textbf{Name} \\
-    \hline
-    00b           & 1 Byte Size.  \\
-    01b           & 2 Byte Size.  \\
-    10b           & 4 Byte Size.  \\
-    11b           & 8 Byte Size.  \\
-    \hline
-  \end{tabular}
+	\begin{tabular}{ |l|l| }
+		\hline
+		\textbf{Flag} & \textbf{Name} \\
+		\hline
+		00b           & 1 Byte Size.  \\
+		01b           & 2 Byte Size.  \\
+		10b           & 4 Byte Size.  \\
+		11b           & 8 Byte Size.  \\
+		\hline
+	\end{tabular}
 \end{center}
 
 \subsubsection{Is Iterable}
@@ -212,45 +216,70 @@ Used as a ID for the value/payload. This value is appended to the Encoding catal
 Iterable Objects are objects that contain a set of child objects. If an object is iterable, the proper flag will be set in the object header. There are two types of iterable objects: typed iterable objects, and untyped Iterable Objects. If an iterable is typed, the proper flag will be set in the object header.
 
 \subsection{Untyped Iterable Objects}
-Untyped Iterable Objects are objects that contain a set of objects that have more than one type of header. Untyped iterable objects are created by concatenating many objects together that share one header.
+Untyped Iterable Objects are objects that contain a set of objects that have more than one type of header. Untyped iterable objects are created by concatenating many objects together do not that share one header.
 
 \subsubsection{Example Structure}
 
-\begin{center}
-  \begin{tabular}{ |l|l| }
-    \hline
-    \textbf{Name}          & \textbf{Description}               \\
-    \hline
-    Encoding catalogue     & Encoding catalogue for entire set. \\
-    ID                     & ID for entire set.                 \\
-    Size                   & Size of entire set.                \\
-    Object 0 (With header) & The first element in the set.      \\
-    Object 1 (With header) & The second element on the set.     \\
-    Object n (With header) & The n'th object in the set.        \\
-    \hline
-  \end{tabular}
-\end{center}
+\begin{bytefield}[bitwidth=4.4em]{8}
+		
+	\bitheader{0-7} \\
+	\bitbox{1}{\tiny Encoding Catalogue} 
+	\bitbox{1}{ID}
+	\bitbox{4}{Size of the iterable object (n bytes)}
+	\bitbox{1}{\tiny [0] Encoding Catalogue}
+	\bitbox{1}{\tiny [0] ID} \\
+	\bitbox{4}{[0] Size of first element}
+		
+	\bitbox[tr]{4}{[0] Value of first element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+		    
+	\bitbox{1}{\tiny [1] Encoding Catalogue}
+	\bitbox{1}{\tiny [1] ID} 
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{2}{\tiny [1] Value of second element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+		    
+	\bitbox{1}{\tiny [n] Encoding Catalogue}
+	\bitbox{1}{\tiny [n] ID} 
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{2}{\tiny [1] Value of nth element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+		
+		
+\end{bytefield}
 
 \subsection{Typed Iterable Objects}
 Typed Iterable Objects are objects that contain a set of objects that all share the same header. Typed iterable objects are created by concatenating many objects without their header together and prepending it with the shared header.
 
 \subsubsection{Example Structure}
 
-\begin{center}
-  \begin{tabular}{ |l|l| }
-    \hline
-    \textbf{Name}        & \textbf{Description}               \\
-    \hline
-    Encoding catalogue   & Encoding catalogue for entire set. \\
-    ID                   & ID for entire set.                 \\
-    Size                 & Size of entire set.                \\
-    Shared Header        & The header the objects 0-n share.  \\
-    Object 0 (No header) & The first element in the set.      \\
-    Object 1 (No header) & The second element on the set.     \\
-    Object n (No header) & The n'th object in the set.        \\
-    \hline
-  \end{tabular}
-\end{center}
+\noindent
+\begin{bytefield}[bitwidth=4.4em]{8}
+		
+	\bitheader{0-7} \\
+	\bitbox{1}{\tiny Encoding Catalogue} 
+	\bitbox{1}{ID}
+	\bitbox{4}{Size of the iterable object (n bytes)}
+	\bitbox{1}{\tiny Encoding Catalogue for all}
+	\bitbox{1}{\tiny ID for all} \\
+		    
+	\bitbox{4}{[0] Size of first element}
+	\bitbox[tr]{4}{[0] Value of first element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+		    
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{4}{[1] Value of second element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+		    
+		
+	\bitbox{4}{[n] Size of second element}
+	\bitbox[tr]{4}{[n] Value of nth element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+		
+		    
+		
+\end{bytefield}
+
 
 % END
 
