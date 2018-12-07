@@ -106,31 +106,67 @@ To send data between nodes, a 4 byte unsigned integer (Big Endian) must be sent 
 		
 \end{bytefield}
 
+% Start Exchange Layer
 \section{Exchange Layer}
 The exchange layer determines the packet sequencing expectations for an interaction
 between devices.  This is consistent regardless of transport.
 
-\subsection{Sequence}
-Currently, the protocol only supports two party interactions. We have a goal of multiparty
-support in a future version.  For clarity, we will refer to the parties as 0, 1, etc...
+\subsection{Bound Witness Sequence}
+For clarity, we will refer to the parties as 0, 1, etc... Bound witness follow the idea of a fetter and a witness. A fetter is an object that contains all signed metadata with the public keys of the device. A witness is an object that contains all unsigned metadata along with the signature of the bound witness. Parties in a bound witness follow a first in, lat out basis. The signature signs all of the fetters contacted together. \\
 
+\noindent
+\textbf{Single Party Bound Witness} \\
 \begin{center}
 	\begin{tabular}{ |l|l|l| }
 		\hline
 		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
 		\hline
 				
-		1             & 0              & Version Header       \\
-		1             & 0              & Public Key           \\
-		1             & 0              & Payload              \\
-		2             & 1              & Public Key           \\
-		2             & 1              & Payload              \\
-		3             & 0              & Signature            \\
-		4             & 1              & Signature            \\
+		1             & 0              & Fetter           \\
+		1             & 0              & Witness              \\
 				
 		\hline
 	\end{tabular}
 \end{center}
+
+
+\noindent
+\textbf{Two Party Bound Witness} \\
+\begin{center}
+	\begin{tabular}{ |l|l|l| }
+		\hline
+		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
+		\hline
+				
+		1             & 0              & Fetter           \\
+		2             & 1              & Fetter              \\
+		3             & 1              & Witness           \\
+		4             & 0              & Witness              \\
+				
+		\hline
+	\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Three Party Bound Witness} \\
+\begin{center}
+	\begin{tabular}{ |l|l|l| }
+		\hline
+		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
+		\hline
+				
+		1             & 0              & Fetter           \\
+		2             & 1              & Fetter              \\
+		3             & 2              & Fetter              \\
+		4             & 2              & Witness           \\
+		5             & 1              & Witness           \\
+		6             & 0              & Witness              \\
+				
+		\hline
+	\end{tabular}
+\end{center}
+
+
 
 
 % Start Data Layer
@@ -279,8 +315,5 @@ Typed Iterable Objects are objects that contain a set of objects that all share 
 		    
 		
 \end{bytefield}
-
-
-% END
 
 \end{document}
