@@ -366,26 +366,25 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \textbf{Array} \\
 \indent \textbf{Id:} 1 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} A general array type. \\
+\indent \textbf{Descreption:} A general array type, this iterable type can be typed, untyped, or an Associative Array. \\
 
 \noindent
 \textbf{Bound Witness} \\
 \indent \textbf{Id:} 2 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} An XYO Bound Witness \\
+\indent \textbf{Descreption:} An XYO Bound Witness. \\
 
 \noindent
 \textbf{Origin Index} \\
 \indent \textbf{Id:} 3 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} The index (height) of the current bound witness in an origin chain. \\
-
+\indent \textbf{Descreption:} The index (height) of the current bound witness in an origin chain. This value is a 4 byte unsigned integer in big endian.\\
 
 \noindent
 \textbf{Next Public Key} \\
 \indent \textbf{Id:} 4 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} The next key to use in an origin chain. \\
+\indent \textbf{Descreption:} The next key to use in an origin chain. This object wraps an any key object and is an array of 1.  \\
 
 \noindent
 \textbf{Bridge Block Set} \\
@@ -403,13 +402,26 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \textbf{Previous Hash} \\
 \indent \textbf{Id:} 8 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} The previous Bound Witness hash. \\
+\indent \textbf{Descreption:} The previous Bound Witness hash. This object wraps any hash object and is an array of 1.\\
 
 \noindent
 \textbf{ECDSA Signature with Sha256 on Secp256k1} \\
 \indent \textbf{Id:} 9 \\
 \indent \textbf{Iterable:} False \\
 \indent \textbf{Descreption:} ECDSA Signature with Sha256 on the curve: Secp256k1. \\
+\indent \textbf{Structure:} \\
+
+\begin{bytefield}[bitwidth=4.4em]{8}
+			
+	\bitheader{0-7} \\
+	\bitbox{1}{\tiny Size of R} 
+	\bitbox[tr]{7}{R value of Signature} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+	\bitbox{1}{\tiny Size of S} 
+	\bitbox[tr]{7}{S value of Signature} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+
+\end{bytefield}
 
 \noindent
 \textbf{RSA Signature} \\
@@ -429,11 +441,19 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \indent \textbf{Iterable:} False \\
 \indent \textbf{Descreption:} EC Uncompressed Public key on the curve Secp256k1. \\
 
+\begin{bytefield}[bitwidth=1.1em]{32}
+			
+	\bitheader{0-31} \\
+	\bitbox{32}{X Value} \\
+	\bitbox{32}{Y Value} \\
+			
+\end{bytefield}
+
 \noindent
 \textbf{RSA Public Key} \\
 \indent \textbf{Id:} 13 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} RSA Public Key. \\
+\indent \textbf{Descreption:} RSA Public Key. The modulus of the RSA signature. \\
 
 \noindent
 \textbf{Stub Public Key} \\
@@ -463,19 +483,19 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \textbf{GPS} \\
 \indent \textbf{Id:} 18 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} GPS Location. \\
+\indent \textbf{Descreption:} GPS Location, associative array of [Latitude, Longitude]. \\
 
 \noindent
 \textbf{RSSI} \\
 \indent \textbf{Id:} 19 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} RSSI of the Bluetooth Connection. \\
+\indent \textbf{Descreption:} RSSI of the Bluetooth Connection. A signed byte. \\
 
 \noindent
 \textbf{Unix Time} \\
 \indent \textbf{Id:} 20 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} The Unix time of the bound witness in milliseconds. \\
+\indent \textbf{Descreption:} The Unix time of the bound witness in milliseconds. Number format: Unsigned Long. \\
 
 \noindent
 \textbf{Fetter} \\
@@ -523,13 +543,13 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \textbf{Latitude} \\
 \indent \textbf{Id:} 28 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} Latitude. \\
+\indent \textbf{Descreption:} Latitude. Number format: Signed Double.\\
 
 \noindent
 \textbf{Longitude} \\
 \indent \textbf{Id:} 29 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} Longitude. \\
+\indent \textbf{Descreption:} Longitude. Number format: Signed Double. \\
 
 
 \end{document}
