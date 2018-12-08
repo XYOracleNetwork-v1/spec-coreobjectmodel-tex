@@ -3,6 +3,7 @@
 \usepackage{float}
 \usepackage{bytefield}
 
+
 \title{XYO Network Interaction Protocol v1.11}
 
 \date{December, 2018}
@@ -59,25 +60,25 @@ To chunk data, a device must prepend a 4 byte unsigned integer (Big Endian) with
 
 \noindent
 \begin{bytefield}[bitwidth=1.1em]{32}
-		
+			
 	\begin{rightwordgroup}{0th Packet}
 		\bitheader{0-31} \\
 		\bitbox{4}{Size}
 		\bitbox[tr]{28}{Value} \\
 		\wordbox[blr]{2}{$\cdots$} \\
 	\end{rightwordgroup} \\
-		
+			
 \end{bytefield}
 
 \noindent
 \begin{bytefield}[bitwidth=1.1em]{32}
-		
+			
 	\begin{rightwordgroup}{n Packet}
 		\bitheader{0-31} \\
 		\bitbox[lrt]{32}{Value} \\
 		\wordbox[blr]{2}{$\cdots$} \\
 	\end{rightwordgroup} \\
-		
+			
 \end{bytefield}
 
 \noindent
@@ -96,14 +97,14 @@ To send data between nodes, a 4 byte unsigned integer (Big Endian) must be sent 
 
 \noindent
 \begin{bytefield}[bitwidth=1.1em]{32}
-		
+			
 	\begin{rightwordgroup}{TCP Packet}
 		\bitheader{0-31} \\
 		\bitbox{4}{Size}
 		\bitbox[tr]{28}{Value} \\
 		\wordbox[blr]{2}{$\cdots$} \\
 	\end{rightwordgroup} \\
-		
+			
 \end{bytefield}
 
 % Start Exchange Layer
@@ -121,10 +122,10 @@ For clarity, we will refer to the parties as 0, 1, etc... Bound witness follow t
 		\hline
 		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
 		\hline
-				
-		1             & 0              & Fetter           \\
+						
+		1             & 0              & Fetter               \\
 		1             & 0              & Witness              \\
-				
+						
 		\hline
 	\end{tabular}
 \end{center}
@@ -137,12 +138,12 @@ For clarity, we will refer to the parties as 0, 1, etc... Bound witness follow t
 		\hline
 		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
 		\hline
-				
-		1             & 0              & Fetter           \\
-		2             & 1              & Fetter              \\
-		3             & 1              & Witness           \\
+						
+		1             & 0              & Fetter               \\
+		2             & 1              & Fetter               \\
+		3             & 1              & Witness              \\
 		4             & 0              & Witness              \\
-				
+						
 		\hline
 	\end{tabular}
 \end{center}
@@ -154,14 +155,14 @@ For clarity, we will refer to the parties as 0, 1, etc... Bound witness follow t
 		\hline
 		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
 		\hline
-				
-		1             & 0              & Fetter           \\
-		2             & 1              & Fetter              \\
-		3             & 2              & Fetter              \\
-		4             & 2              & Witness           \\
-		5             & 1              & Witness           \\
+						
+		1             & 0              & Fetter               \\
+		2             & 1              & Fetter               \\
+		3             & 2              & Fetter               \\
+		4             & 2              & Witness              \\
+		5             & 1              & Witness              \\
 		6             & 0              & Witness              \\
-				
+						
 		\hline
 	\end{tabular}
 \end{center}
@@ -191,15 +192,15 @@ The object header is prepended to every object to obtain information about the o
 
 \noindent
 \begin{bytefield}[bitwidth=17.6em]{2}
-		
+			
 	\begin{rightwordgroup}{Object \\ Header}
-				
+						
 		\bitheader{0-1} \\
 		\bitbox{1}{ID}
 		\bitbox{1}{Encoding Catalogue}
-				    
+						    
 	\end{rightwordgroup}
-		
+			
 \end{bytefield}
 
 \subsection{Encoding catalogue (1 Byte)}
@@ -207,18 +208,17 @@ The encoding catalogue gives information about the size of the size and if the o
 
 \noindent
 \begin{bytefield}[bitwidth=4.4em]{8}
-		
+			
 	\begin{rightwordgroup}{Encoding \\ Catalogue \\ 8 bits}
-				
+						
 		\bitheader{0-7} \\
 		\bitbox{2}{Size identifier size}
-		\bitbox{1}{Iterable}
-		\bitbox{1}{Typed}
+		\bitbox{2}{Iterable}
 		\bitbox{4}{Reserved}
-				
-				    
+						
+						    
 	\end{rightwordgroup}
-		
+			
 \end{bytefield}
 
 
@@ -238,11 +238,23 @@ These two bits are used to determine how many bytes to read to obtain the size o
 	\end{tabular}
 \end{center}
 
-\subsubsection{Is Iterable}
-This flag is the 3rd most significant bit. If the bit is set, the following object after the object header will be Iterable.
+\subsubsection{Iterable (2 bits)}
+This flag is the 3-4th most significant bits. The flags follow the table below:
 
-\subsection{Is a typed iterable}
-This flag is the 4rd most significant bit. If the bit is set, the following Iterable object will only contain one header for all items in the set. For more information refer to the Iterable objects section.
+\begin{center}
+	\begin{tabular}{ |l|l| }
+		\hline
+		\textbf{Flag} & \textbf{Name}      \\
+		\hline
+		00b           & Not Iterable.      \\
+		01b           & Associative Array. \\
+		10b           & Untyped Iterable.  \\
+		11b           & Typed Iterable.    \\
+		\hline
+	\end{tabular}
+\end{center}
+
+
 
 
 \subsection{ID (1 Byte)}
@@ -257,7 +269,7 @@ Untyped Iterable Objects are objects that contain a set of objects that have mor
 \subsubsection{Example Structure}
 
 \begin{bytefield}[bitwidth=4.4em]{8}
-		
+			
 	\bitheader{0-7} \\
 	\bitbox{1}{\tiny Encoding Catalogue} 
 	\bitbox{1}{ID}
@@ -265,23 +277,23 @@ Untyped Iterable Objects are objects that contain a set of objects that have mor
 	\bitbox{1}{\tiny [0] Encoding Catalogue}
 	\bitbox{1}{\tiny [0] ID} \\
 	\bitbox{4}{[0] Size of first element}
-		
+			
 	\bitbox[tr]{4}{[0] Value of first element} \\
 	\wordbox[blr]{2}{$\cdots$} \\
-		    
+			    
 	\bitbox{1}{\tiny [1] Encoding Catalogue}
 	\bitbox{1}{\tiny [1] ID} 
 	\bitbox{4}{[1] Size of second element}
 	\bitbox[tr]{2}{\tiny [1] Value of second element} \\
 	\wordbox[blr]{2}{$\cdots$} \\
-		    
+			    
 	\bitbox{1}{\tiny [n] Encoding Catalogue}
 	\bitbox{1}{\tiny [n] ID} 
 	\bitbox{4}{[1] Size of second element}
 	\bitbox[tr]{2}{\tiny [1] Value of nth element} \\
 	\wordbox[blr]{2}{$\cdots$} \\
-		
-		
+			
+			
 \end{bytefield}
 
 \subsection{Typed Iterable Objects}
@@ -291,29 +303,233 @@ Typed Iterable Objects are objects that contain a set of objects that all share 
 
 \noindent
 \begin{bytefield}[bitwidth=4.4em]{8}
-		
+			
 	\bitheader{0-7} \\
 	\bitbox{1}{\tiny Encoding Catalogue} 
 	\bitbox{1}{ID}
 	\bitbox{4}{Size of the iterable object (n bytes)}
 	\bitbox{1}{\tiny Encoding Catalogue for all}
 	\bitbox{1}{\tiny ID for all} \\
-		    
+			    
 	\bitbox{4}{[0] Size of first element}
 	\bitbox[tr]{4}{[0] Value of first element} \\
 	\wordbox[blr]{2}{$\cdots$} \\
-		    
+			    
 	\bitbox{4}{[1] Size of second element}
 	\bitbox[tr]{4}{[1] Value of second element} \\
 	\wordbox[blr]{2}{$\cdots$} \\
-		    
-		
+			    
+			
 	\bitbox{4}{[n] Size of second element}
 	\bitbox[tr]{4}{[n] Value of nth element} \\
 	\wordbox[blr]{2}{$\cdots$} \\
 		
-		    
-		
 \end{bytefield}
+
+\subsection{Associative Array}
+Associative Arrays are just like untyped arrays with the condition that every elements id in the array must be unique, similar to an "object" in JSON.
+
+\subsubsection{Example Structure}
+
+\begin{bytefield}[bitwidth=4.4em]{8}
+			
+	\bitheader{0-7} \\
+	\bitbox{1}{\tiny Encoding Catalogue} 
+	\bitbox{1}{ID}
+	\bitbox{4}{Size of the iterable object (n bytes)}
+	\bitbox{1}{\tiny [0] Encoding Catalogue}
+	\bitbox{1}{\tiny [0] ID} \\
+	\bitbox{4}{[0] Size of first element}
+			
+	\bitbox[tr]{4}{[0] Value of first element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			    
+	\bitbox{1}{\tiny [1] Encoding Catalogue}
+	\bitbox{1}{\tiny [1] ID} 
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{2}{\tiny [1] Value of second element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			    
+	\bitbox{1}{\tiny [n] Encoding Catalogue}
+	\bitbox{1}{\tiny [n] ID} 
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{2}{\tiny [1] Value of nth element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			
+			
+\end{bytefield}
+
+
+
+\subsection{First Class Objects}
+\noindent
+\textbf{Array} \\
+\indent \textbf{Id:} 1 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} A general array type. \\
+
+\noindent
+\textbf{Bound Witness} \\
+\indent \textbf{Id:} 2 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} An XYO Bound Witness \\
+
+\noindent
+\textbf{Origin Index} \\
+\indent \textbf{Id:} 3 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} The index (height) of the current bound witness in an origin chain. \\
+
+
+\noindent
+\textbf{Next Public Key} \\
+\indent \textbf{Id:} 4 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} The next key to use in an origin chain. \\
+
+\noindent
+\textbf{Bridge Block Set} \\
+\indent \textbf{Id:} 5 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} An array of blocks. Used when bridging. \\
+
+\noindent
+\textbf{Bridge Hash Set} \\
+\indent \textbf{Id:} 6 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} An array of hashes of blocks. Used when bridging. \\
+
+\noindent
+\textbf{Previous Hash} \\
+\indent \textbf{Id:} 8 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} The previous Bound Witness hash. \\
+
+\noindent
+\textbf{ECDSA Signature with Sha256 on Secp256k1} \\
+\indent \textbf{Id:} 9 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} ECDSA Signature with Sha256 on the curve: Secp256k1. \\
+
+\noindent
+\textbf{RSA Signature} \\
+\indent \textbf{Id:} 10 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} The modulus of the RSA signature. \\
+
+\noindent
+\textbf{Stub Signature} \\
+\indent \textbf{Id:} 11 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A signature used for development. \\
+
+\noindent
+\textbf{EC Secp256k1 Uncompressed Public Key} \\
+\indent \textbf{Id:} 12 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} EC Uncompressed Public key on the curve Secp256k1. \\
+
+\noindent
+\textbf{RSA Public Key} \\
+\indent \textbf{Id:} 13 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} RSA Public Key. \\
+
+\noindent
+\textbf{Stub Public Key} \\
+\indent \textbf{Id:} 14 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A stub public key used for development. \\
+
+\noindent
+\textbf{Stub Hash} \\
+\indent \textbf{Id:} 15 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A stub hash used for development. \\
+
+\noindent
+\textbf{SHA 256} \\
+\indent \textbf{Id:} 16 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A SHA 256 Hash. \\
+
+\noindent
+\textbf{SHA 3} \\
+\indent \textbf{Id:} 17 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A SHA 3 Hash. \\
+
+\noindent
+\textbf{GPS} \\
+\indent \textbf{Id:} 18 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} GPS Location. \\
+
+\noindent
+\textbf{RSSI} \\
+\indent \textbf{Id:} 19 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} RSSI of the Bluetooth Connection. \\
+
+\noindent
+\textbf{Unix Time} \\
+\indent \textbf{Id:} 20 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} The Unix time of the bound witness in milliseconds. \\
+
+\noindent
+\textbf{Fetter} \\
+\indent \textbf{Id:} 21 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A bound witness fetter. \\
+
+\noindent
+\textbf{Fetter Set} \\
+\indent \textbf{Id:} 22 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A set of fetters. \\
+
+\noindent
+\textbf{Witness} \\
+\indent \textbf{Id:} 23 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A bound witness witness. \\
+
+\noindent
+\textbf{Witness Set} \\
+\indent \textbf{Id:} 24 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A set of witnesses. \\
+
+\noindent
+\textbf{Key Set} \\
+\indent \textbf{Id:} 25 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A set of public keys. \\
+
+\noindent
+\textbf{Signature Set} \\
+\indent \textbf{Id:} 26 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A set of signatures. \\
+
+\noindent
+\textbf{Bound Witness Fragment} \\
+\indent \textbf{Id:} 27 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A witnesses and fetters. \\
+
+\noindent
+\textbf{Latitude} \\
+\indent \textbf{Id:} 28 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} Latitude. \\
+
+\noindent
+\textbf{Longitude} \\
+\indent \textbf{Id:} 29 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} Longitude. \\
+
 
 \end{document}
