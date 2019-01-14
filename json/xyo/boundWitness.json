@@ -8,15 +8,15 @@
 		"desc": "A Bound Witness in the XYO Network.",
 		"childs": [
 			{
-				"id": "0x14",
+				"id": "0x01",
 				"desc": "A keyset for every party in the bound witness."
 			},
 			{
-				"id": "0x14",
+				"id": "0x01",
 				"desc": "A payload for every party in the bound witness."
 			},
 			{
-				"id": "0x14",
+				"id": "0x01",
 				"desc": "A SignatureSet for every party in the bound witness."
 			}
 		]

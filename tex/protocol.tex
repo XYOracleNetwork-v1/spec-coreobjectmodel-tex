@@ -1,0 +1,554 @@
+\documentclass[11pt]{article}
+\author{XYO}
+\usepackage{float}
+\usepackage{bytefield}
+
+
+\title{XYO Network Interaction Protocol v1.1}
+
+\date{December, 2018}
+\begin{document}
+\maketitle
+
+\section{Overview}
+The XYO Interaction Protocol determines how devices can interact with each other though XYO.
+The protocol is broken into three layers, Transport, Exchange, and Data.
+
+\section{Transport Layer}
+The transport layer determines how devices speak to each other via Bluetooth, TCP/IP,
+or other transport. All these will have a similar structures, but will have transport
+specific differences.
+
+% Bluetooth Start
+\subsection{Bluetooth (BLE)}
+The Bluetooth transfer layer essentially abstracts GATT (Generic Attributes) characteristics to an input and output stream. Both client and server can send send any data to each other.
+
+\subsubsection{Primary Service}
+This service contains 2 characteristics, a read characteristic and a write characteristic. The XYO Primary Service UUID indicates that a device is capable of XYO functionality. The UUIDs for the service are listed below.\\
+
+\noindent
+\textbf{XYO Primary Service UUID:} d684352e-df36-484e-bc98-2d5398c5593e \\
+\textbf{-- Write Characteristic UUID:} 727a3639-0eb4-4525-b1bc-7fa456490b2d \\
+\textbf{-- Read Characteristic UUID:} d96b6ad7-cbcb-4979-bf06-a1051edaecb4 \\
+
+\subsubsection{Sending Data}
+Transferring data between two XYO BLE devices consists of reading and writing to characteristics. All data is chunked into individual packets that can be reconstructed by the client or the server. When the connection is established, the client must subscribe to the read characteristic, so it can be notified when to read the servers data. 
+
+\noindent
+\textbf{Client Sending to Server}\\
+\indent
+After the two parties have established a connection. A client client can send information to the server by writing the respected bytes to the write characteristic.
+
+\noindent
+\textbf{Server Sending to Client}\\
+\indent
+After the two parties have established a connection. A server can send to the client by sending a BLE notification to the client to read from its read characteristic.
+
+\subsubsection{Advertising and Device Discovery}
+XYO Enabled BLE devices should be advertising the XYO Primary Service UUID to identify them as available for a connection session. If the device is not available for a connection, it should not be advertising the primary service. This means unless a device can support mutable XYO connections at once, it should stop advertising after a connection has been established. \\
+
+\noindent
+Many modern BLE devices rotate MAC addresses in order to combat unwanted tracking of the device. Due to this, it is hard to identify a device sully off of its mac address over a long period of time. To solve this, a node can optionally advertise any series of random bytes as the manufacturer id.
+
+\subsubsection{Chunking Data}
+When sending any data between two devices, it is necessary to chunk all of the data wishing to be sent into smaller segments so large amounts of data can be transacted. \\
+
+\noindent
+To chunk data, a device must prepend a 4 byte unsigned integer (Big Endian) with the value of the size of the entire data wishing to be sent, in bytes. This size includes itself. After the size has been prepended, the device may chunk it up into as many portions as wanted, as long as the largest packet is smaller than or equal to the MTU of the connection.
+\\
+
+
+\noindent
+\begin{bytefield}[bitwidth=1.1em]{32}
+			
+	\begin{rightwordgroup}{0th Packet}
+		\bitheader{0-31} \\
+		\bitbox{4}{Size}
+		\bitbox[tr]{28}{Value} \\
+		\wordbox[blr]{2}{$\cdots$} \\
+	\end{rightwordgroup} \\
+			
+\end{bytefield}
+
+\noindent
+\begin{bytefield}[bitwidth=1.1em]{32}
+			
+	\begin{rightwordgroup}{n Packet}
+		\bitheader{0-31} \\
+		\bitbox[lrt]{32}{Value} \\
+		\wordbox[blr]{2}{$\cdots$} \\
+	\end{rightwordgroup} \\
+			
+\end{bytefield}
+
+\noindent
+We can infer that the packet is done being sent once the number of value bytes is equal to the $size - 4$.
+
+
+% TCP/IP Start
+\subsection{TCP/IP}
+The TCP/IP network is a simple way to transact information between devices.
+
+\subsubsection{Connection Session}
+During a TCP connection between two devices, a socket is only established once. After the connection session is over, the socket is closed by either party.
+
+\subsubsection{Transacting Data}
+To send data between nodes, a 4 byte unsigned integer (Big Endian) must be sent through the socket (size includes itself), then the value wishing to be sent. We can infer that the packet is done being sent once the number of value bytes is equal to the $size - 4$. \\
+
+\noindent
+\begin{bytefield}[bitwidth=1.1em]{32}
+			
+	\begin{rightwordgroup}{TCP Packet}
+		\bitheader{0-31} \\
+		\bitbox{4}{Size}
+		\bitbox[tr]{28}{Value} \\
+		\wordbox[blr]{2}{$\cdots$} \\
+	\end{rightwordgroup} \\
+			
+\end{bytefield}
+
+% Start Exchange Layer
+\section{Exchange Layer}
+The exchange layer determines the packet sequencing expectations for an interaction
+between devices.  This is consistent regardless of transport.
+
+\subsection{Bound Witness Sequence}
+For clarity, we will refer to the parties as 0, 1, etc... Bound witness follow the idea of a fetter and a witness. A fetter is an object that contains all signed metadata with the public keys of the device. A witness is an object that contains all unsigned metadata along with the signature of the bound witness. Parties in a bound witness follow a first in, lat out basis. The signature signs all of the fetters contacted together. \\
+
+\noindent
+\textbf{Single Party Bound Witness} \\
+\begin{center}
+	\begin{tabular}{ |l|l|l| }
+		\hline
+		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
+		\hline
+						
+		1             & 0              & Fetter               \\
+		1             & 0              & Witness              \\
+						
+		\hline
+	\end{tabular}
+\end{center}
+
+
+\noindent
+\textbf{Two Party Bound Witness} \\
+\begin{center}
+	\begin{tabular}{ |l|l|l| }
+		\hline
+		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
+		\hline
+						
+		1             & 0              & Fetter               \\
+		2             & 1              & Fetter               \\
+		3             & 1              & Witness              \\
+		4             & 0              & Witness              \\
+						
+		\hline
+	\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Three Party Bound Witness} \\
+\begin{center}
+	\begin{tabular}{ |l|l|l| }
+		\hline
+		\textbf{Step} & \textbf{Party} & \textbf{Description} \\
+		\hline
+						
+		1             & 0              & Fetter               \\
+		2             & 1              & Fetter               \\
+		3             & 2              & Fetter               \\
+		4             & 2              & Witness              \\
+		5             & 1              & Witness              \\
+		6             & 0              & Witness              \\
+						
+		\hline
+	\end{tabular}
+\end{center}
+
+
+
+
+% Start Data Layer
+\section{Data Layer}
+The data layer specifies how data blocks are interpreted by devices. All numbers are passed in Big Endian.  There is no padding between items being passed. Everything that is encoded is a superset of an \textit{Object}. An object is defined by having an object header that contains information about how to unpack that object. This information includes how to read the size of the object, if the object is Iterable (typed and untyped), and the ID of the object.
+
+\section{Object Structure}
+\begin{center}
+	\begin{tabular}{ |l|l| }
+		\hline
+		\textbf{Name} & \textbf{Description}            \\
+		\hline
+		Object Header & Info about the object and size  \\
+		Size          & Size of the object              \\
+		Payload       & The raw contents of the object. \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\section{Object Header}
+The object header is prepended to every object to obtain information about the object. This is broken into two primary sections, the encoding catalogue and ID. \\
+
+\noindent
+\begin{bytefield}[bitwidth=17.6em]{2}
+			
+	\begin{rightwordgroup}{Object \\ Header}
+						
+		\bitheader{0-1} \\
+		\bitbox{1}{ID}
+		\bitbox{1}{Encoding Catalogue}
+						    
+	\end{rightwordgroup}
+			
+\end{bytefield}
+
+\subsection{Encoding catalogue (1 Byte)}
+The encoding catalogue gives information about the size of the size and if the object is Iterable (typed and untyped).\\
+
+\noindent
+\begin{bytefield}[bitwidth=4.4em]{8}
+			
+	\begin{rightwordgroup}{Encoding \\ Catalogue \\ 8 bits}
+						
+		\bitheader{0-7} \\
+		\bitbox{2}{Size identifier size}
+		\bitbox{2}{Iterable}
+		\bitbox{4}{Reserved}
+						
+						    
+	\end{rightwordgroup}
+			
+\end{bytefield}
+
+
+\subsubsection{Size identifier size (2 bits)}
+These two bits are used to determine how many bytes to read to obtain the size of the object after the header of the object. The states of the Size identifier size flags are listed below. Note: \textit{All sizes include themes, are big endian, and are unsigned.}
+
+\begin{center}
+	\begin{tabular}{ |l|l| }
+		\hline
+		\textbf{Flag} & \textbf{Name} \\
+		\hline
+		00b           & 1 Byte Size.  \\
+		01b           & 2 Byte Size.  \\
+		10b           & 4 Byte Size.  \\
+		11b           & 8 Byte Size.  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsubsection{Iterable (2 bits)}
+This flag is the 3-4th most significant bits. The flags follow the table below:
+
+\begin{center}
+	\begin{tabular}{ |l|l| }
+		\hline
+		\textbf{Flag} & \textbf{Name}      \\
+		\hline
+		00b           & Not Iterable.      \\
+		01b           & Associative Array. \\
+		10b           & Untyped Iterable.  \\
+		11b           & Typed Iterable.    \\
+		\hline
+	\end{tabular}
+\end{center}
+
+
+
+
+\subsection{ID (1 Byte)}
+Used as a ID for the value/payload. This value is appended to the Encoding catalogue.
+
+\section{Iterable Objects}
+Iterable Objects are objects that contain a set of child objects. If an object is iterable, the proper flag will be set in the object header. There are two types of iterable objects: typed iterable objects, and untyped Iterable Objects. If an iterable is typed, the proper flag will be set in the object header.
+
+\subsection{Untyped Iterable Objects}
+Untyped Iterable Objects are objects that contain a set of objects that have more than one type of header. Untyped iterable objects are created by concatenating many objects together do not that share one header.
+
+\subsubsection{Example Structure}
+
+\begin{bytefield}[bitwidth=4.4em]{8}
+			
+	\bitheader{0-7} \\
+	\bitbox{1}{\tiny Encoding Catalogue} 
+	\bitbox{1}{ID}
+	\bitbox{4}{Size of the iterable object (n bytes)}
+	\bitbox{1}{\tiny [0] Encoding Catalogue}
+	\bitbox{1}{\tiny [0] ID} \\
+	\bitbox{4}{[0] Size of first element}
+			
+	\bitbox[tr]{4}{[0] Value of first element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			    
+	\bitbox{1}{\tiny [1] Encoding Catalogue}
+	\bitbox{1}{\tiny [1] ID} 
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{2}{\tiny [1] Value of second element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			    
+	\bitbox{1}{\tiny [n] Encoding Catalogue}
+	\bitbox{1}{\tiny [n] ID} 
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{2}{\tiny [1] Value of nth element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			
+\end{bytefield}
+
+\subsection{Typed Iterable Objects}
+Typed Iterable Objects are objects that contain a set of objects that all share the same header. Typed iterable objects are created by concatenating many objects without their header together and prepending it with the shared header.
+
+\subsubsection{Example Structure}
+
+\noindent
+\begin{bytefield}[bitwidth=4.4em]{8}
+			
+	\bitheader{0-7} \\
+	\bitbox{1}{\tiny Encoding Catalogue} 
+	\bitbox{1}{ID}
+	\bitbox{4}{Size of the iterable object (n bytes)}
+	\bitbox{1}{\tiny Encoding Catalogue for all}
+	\bitbox{1}{\tiny ID for all} \\
+			    
+	\bitbox{4}{[0] Size of first element}
+	\bitbox[tr]{4}{[0] Value of first element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			    
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{4}{[1] Value of second element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			    
+			
+	\bitbox{4}{[n] Size of second element}
+	\bitbox[tr]{4}{[n] Value of nth element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+		
+\end{bytefield}
+
+\subsection{Associative Array}
+Associative Arrays are just like untyped arrays with the condition that every elements id in the array must be unique, similar to an "object" in JSON.
+
+\subsubsection{Example Structure}
+
+\begin{bytefield}[bitwidth=4.4em]{8}
+			
+	\bitheader{0-7} \\
+	\bitbox{1}{\tiny Encoding Catalogue} 
+	\bitbox{1}{ID}
+	\bitbox{4}{Size of the iterable object (n bytes)}
+	\bitbox{1}{\tiny [0] Encoding Catalogue}
+	\bitbox{1}{\tiny [0] ID} \\
+	\bitbox{4}{[0] Size of first element}
+			
+	\bitbox[tr]{4}{[0] Value of first element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			    
+	\bitbox{1}{\tiny [1] Encoding Catalogue}
+	\bitbox{1}{\tiny [1] ID} 
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{2}{\tiny [1] Value of second element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			    
+	\bitbox{1}{\tiny [n] Encoding Catalogue}
+	\bitbox{1}{\tiny [n] ID} 
+	\bitbox{4}{[1] Size of second element}
+	\bitbox[tr]{2}{\tiny [1] Value of nth element} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+			
+			
+\end{bytefield}
+
+
+
+\subsection{First Class Objects}
+\noindent
+\textbf{Array} \\
+\indent \textbf{Id:} 1 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} A general array type, this iterable type can be typed, untyped, or an Associative Array. \\
+
+\noindent
+\textbf{Bound Witness} \\
+\indent \textbf{Id:} 2 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} An XYO Bound Witness. \\
+
+\noindent
+\textbf{Origin Index} \\
+\indent \textbf{Id:} 3 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} The index (height) of the current bound witness in an origin chain. This value is a 4 byte unsigned integer in big endian.\\
+
+\noindent
+\textbf{Next Public Key} \\
+\indent \textbf{Id:} 4 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} The next key to use in an origin chain. This object wraps an any key object and is an array of 1.  \\
+
+\noindent
+\textbf{Bridge Block Set} \\
+\indent \textbf{Id:} 5 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} An array of blocks. Used when bridging. \\
+
+\noindent
+\textbf{Bridge Hash Set} \\
+\indent \textbf{Id:} 6 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} An array of hashes of blocks. Used when bridging. \\
+
+\noindent
+\textbf{Previous Hash} \\
+\indent \textbf{Id:} 8 \\
+\indent \textbf{Iterable:} True \\
+\indent \textbf{Descreption:} The previous Bound Witness hash. This object wraps any hash object and is an array of 1.\\
+
+\noindent
+\textbf{ECDSA Signature with Sha256 on Secp256k1} \\
+\indent \textbf{Id:} 9 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} ECDSA Signature with Sha256 on the curve: Secp256k1. \\
+\indent \textbf{Structure:} \\
+
+\begin{bytefield}[bitwidth=4.4em]{8}
+			
+	\bitheader{0-7} \\
+	\bitbox{1}{\tiny Size of R} 
+	\bitbox[tr]{7}{R value of Signature} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+	\bitbox{1}{\tiny Size of S} 
+	\bitbox[tr]{7}{S value of Signature} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+
+\end{bytefield}
+
+\noindent
+\textbf{RSA Signature} \\
+\indent \textbf{Id:} 10 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} The modulus of the RSA signature. \\
+
+\noindent
+\textbf{Stub Signature} \\
+\indent \textbf{Id:} 11 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A signature used for development. \\
+
+\noindent
+\textbf{EC Secp256k1 Uncompressed Public Key} \\
+\indent \textbf{Id:} 12 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} EC Uncompressed Public key on the curve Secp256k1. \\
+
+\begin{bytefield}[bitwidth=1.1em]{32}
+			
+	\bitheader{0-31} \\
+	\bitbox{32}{X Value} \\
+	\bitbox{32}{Y Value} \\
+			
+\end{bytefield}
+
+\noindent
+\textbf{RSA Public Key} \\
+\indent \textbf{Id:} 13 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} RSA Public Key. The modulus of the RSA signature. \\
+
+\noindent
+\textbf{Stub Public Key} \\
+\indent \textbf{Id:} 14 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A stub public key used for development. \\
+
+\noindent
+\textbf{Stub Hash} \\
+\indent \textbf{Id:} 15 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A stub hash used for development. \\
+
+\noindent
+\textbf{SHA 256} \\
+\indent \textbf{Id:} 16 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A SHA 256 Hash. \\
+
+\noindent
+\textbf{SHA 3} \\
+\indent \textbf{Id:} 17 \\
+\indent \textbf{Iterable:} False \\
+\indent \textbf{Descreption:} A SHA 3 Hash. \\
+
+\noindent
+\textbf{GPS} \\
+\indent \textbf{Id:} 18 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} GPS Location, associative array of [Latitude, Longitude]. \\
+
+\noindent
+\textbf{RSSI} \\
+\indent \textbf{Id:} 19 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} RSSI of the Bluetooth Connection. A signed byte. \\
+
+\noindent
+\textbf{Unix Time} \\
+\indent \textbf{Id:} 20 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} The Unix time of the bound witness in milliseconds. Number format: Unsigned Long. \\
+
+\noindent
+\textbf{Fetter} \\
+\indent \textbf{Id:} 21 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A bound witness fetter. \\
+
+\noindent
+\textbf{Fetter Set} \\
+\indent \textbf{Id:} 22 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A set of fetters. \\
+
+\noindent
+\textbf{Witness} \\
+\indent \textbf{Id:} 23 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A bound witness witness. \\
+
+\noindent
+\textbf{Witness Set} \\
+\indent \textbf{Id:} 24 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A set of witnesses. \\
+
+\noindent
+\textbf{Key Set} \\
+\indent \textbf{Id:} 25 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A set of public keys. \\
+
+\noindent
+\textbf{Signature Set} \\
+\indent \textbf{Id:} 26 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A set of signatures. \\
+
+\noindent
+\textbf{Bound Witness Fragment} \\
+\indent \textbf{Id:} 27 \\
+\indent \textbf{Iterable:} Yes \\
+\indent \textbf{Descreption:} A witnesses and fetters. \\
+
+\noindent
+\textbf{Latitude} \\
+\indent \textbf{Id:} 28 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} Latitude. Number format: Signed Double.\\
+
+\noindent
+\textbf{Longitude} \\
+\indent \textbf{Id:} 29 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} Longitude. Number format: Signed Double. \\
+
+
+\end{document}
