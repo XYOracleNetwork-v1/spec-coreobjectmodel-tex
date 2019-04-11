@@ -1,0 +1,27 @@
+\documentclass[11pt]{article}
+
+\usepackage{float}
+\title{XYO Network Encoding}
+
+\date{April, 2019}
+\begin{document}
+\maketitle
+
+
+\section{Overview}
+When communicating with applications across the XYO Network it is important to have a standard for encoding binary data so that all applications can be sure that they are talking about the same entity/object. The XYO Network only encodes binary data to a string when talking over HTTP/HTTPS or when using a protocol that does not allow arbitrary binary data -- Otherwise it is left untouched. 
+
+
+\section{Public Keys and Hashes}
+When referencing to a public key or hash as a string, it should be shown in base58 with the encoding header. A public key or a hash should never be shown without its encoding header defined in the Object Model Scheme document. 
+
+\subsection{Base 58}
+The XYO Network uses the alphabet below for its base 58 encoding. It is the same base58 encoding used in Bitcoin and other popular cryptocurrencies, but not the base58 that Flicker uses. 
+
+\
+
+\noindent
+123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
+
+
+\end{document}
