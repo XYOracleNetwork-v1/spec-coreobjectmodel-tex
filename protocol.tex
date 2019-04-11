@@ -4,7 +4,7 @@
 \usepackage{bytefield}
 
 
-\title{XYO Network Interaction Protocol v1.1}
+\title{XYO Network Interaction Protocol v2.0}
 
 \date{December, 2018}
 \begin{document}
@@ -28,11 +28,10 @@ This service contains 2 characteristics, a read characteristic and a write chara
 
 \noindent
 \textbf{XYO Primary Service UUID:} d684352e-df36-484e-bc98-2d5398c5593e \\
-\textbf{-- Write Characteristic UUID:} 727a3639-0eb4-4525-b1bc-7fa456490b2d \\
-\textbf{-- Read Characteristic UUID:} d96b6ad7-cbcb-4979-bf06-a1051edaecb4 \\
+\textbf{-- Pipe Characteristic UUID:} 727a3639-0eb4-4525-b1bc-7fa456490b2d \\
 
 \subsubsection{Sending Data}
-Transferring data between two XYO BLE devices consists of reading and writing to characteristics. All data is chunked into individual packets that can be reconstructed by the client or the server. When the connection is established, the client must subscribe to the read characteristic, so it can be notified when to read the servers data. 
+Transferring data between two XYO BLE devices consists of reading and writing to characteristics. All data is chunked into individual packets that can be reconstructed by the client or the server. When the connection is established, the client must subscribe to the read characteristic, so it can be notified of the server's data. 
 
 \noindent
 \textbf{Client Sending to Server}\\
@@ -42,13 +41,10 @@ After the two parties have established a connection. A client client can send in
 \noindent
 \textbf{Server Sending to Client}\\
 \indent
-After the two parties have established a connection. A server can send to the client by sending a BLE notification to the client to read from its read characteristic.
+After the two parties have established a connection. A server can send to the client by sending a BLE notification's of the data to send.
 
 \subsubsection{Advertising and Device Discovery}
 XYO Enabled BLE devices should be advertising the XYO Primary Service UUID to identify them as available for a connection session. If the device is not available for a connection, it should not be advertising the primary service. This means unless a device can support mutable XYO connections at once, it should stop advertising after a connection has been established. \\
-
-\noindent
-Many modern BLE devices rotate MAC addresses in order to combat unwanted tracking of the device. Due to this, it is hard to identify a device sully off of its mac address over a long period of time. To solve this, a node can optionally advertise any series of random bytes as the manufacturer id.
 
 \subsubsection{Chunking Data}
 When sending any data between two devices, it is necessary to chunk all of the data wishing to be sent into smaller segments so large amounts of data can be transacted. \\
@@ -398,6 +394,12 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \indent \textbf{Descreption:} An array of hashes of blocks. Used when bridging. \\
 
 \noindent
+\textbf{Payment Key} \\
+\indent \textbf{Id:} 7 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} The payment key of the device, any length. \\
+
+\noindent
 \textbf{Previous Hash} \\
 \indent \textbf{Id:} 8 \\
 \indent \textbf{Iterable:} True \\
@@ -549,6 +551,12 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \indent \textbf{Id:} 29 \\
 \indent \textbf{Iterable:} No \\
 \indent \textbf{Descreption:} Longitude. Number format: Signed Double. \\
+
+\noindent
+\textbf{RSSI at 1m} \\
+\indent \textbf{Id:} 30 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Descreption:} RSSI at 1m, signed byte.  \\
 
 \noindent
 \textbf{JSON Blob} \\
