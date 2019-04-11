@@ -1,0 +1,14 @@
+
+{
+	"id": 254,
+	"sizeIdentifier": [1, 2, 4, 8],
+	"isIterable": false,
+	"isTyped": false,
+	"meta": {
+		"name": "JSON blob",
+		"desc": "An arbitrary json value.",
+		"childs": [
+
+		]
+	}
+}
