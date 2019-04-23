@@ -361,55 +361,55 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \textbf{Array} \\
 \indent \textbf{Id:} 1 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} A general array type, this iterable type can be typed, untyped, or an Associative Array. \\
+\indent \textbf{Description:} A general array type, this iterable type can be typed, untyped, or an Associative Array. \\
 
 \noindent
 \textbf{Bound Witness} \\
 \indent \textbf{Id:} 2 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} An XYO Bound Witness. \\
+\indent \textbf{Description:} An XYO Bound Witness. \\
 
 \noindent
 \textbf{Origin Index} \\
 \indent \textbf{Id:} 3 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} The index (height) of the current bound witness in an origin chain. This value is a 4 byte unsigned integer in big endian.\\
+\indent \textbf{Description:} The index (height) of the current bound witness in an origin chain. This value is a 4 byte unsigned integer in big endian.\\
 
 \noindent
 \textbf{Next Public Key} \\
 \indent \textbf{Id:} 4 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} The next key to use in an origin chain. This object wraps an any key object and is an array of 1.  \\
+\indent \textbf{Description:} The next key to use in an origin chain. This object wraps an any key object and is an array of 1.  \\
 
 \noindent
 \textbf{Bridge Block Set} \\
 \indent \textbf{Id:} 5 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} An array of blocks. Used when bridging. \\
+\indent \textbf{Description:} An array of blocks. Used when bridging. \\
 
 \noindent
 \textbf{Bridge Hash Set} \\
 \indent \textbf{Id:} 6 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} An array of hashes of blocks. Used when bridging. \\
+\indent \textbf{Description:} An array of hashes of blocks. Used when bridging. \\
 
 \noindent
 \textbf{Payment Key} \\
 \indent \textbf{Id:} 7 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} The payment key of the device, any length. \\
+\indent \textbf{Description:} The payment key of the device, any length. \\
 
 \noindent
 \textbf{Previous Hash} \\
 \indent \textbf{Id:} 8 \\
 \indent \textbf{Iterable:} True \\
-\indent \textbf{Descreption:} The previous Bound Witness hash. This object wraps any hash object and is an array of 1.\\
+\indent \textbf{Description:} The previous Bound Witness hash. This object wraps any hash object and is an array of 1.\\
 
 \noindent
 \textbf{ECDSA Signature with Sha256 on Secp256k1} \\
 \indent \textbf{Id:} 9 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} ECDSA Signature with Sha256 on the curve: Secp256k1. \\
+\indent \textbf{Description:} ECDSA Signature with Sha256 on the curve: Secp256k1. \\
 \indent \textbf{Structure:} \\
 
 \begin{bytefield}[bitwidth=4.4em]{8}
@@ -428,19 +428,19 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \textbf{RSA Signature} \\
 \indent \textbf{Id:} 10 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} The modulus of the RSA signature. \\
+\indent \textbf{Description:} The modulus of the RSA signature. \\
 
 \noindent
 \textbf{Stub Signature} \\
 \indent \textbf{Id:} 11 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} A signature used for development. \\
+\indent \textbf{Description:} A signature used for development. \\
 
 \noindent
 \textbf{EC Secp256k1 Uncompressed Public Key} \\
 \indent \textbf{Id:} 12 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} EC Uncompressed Public key on the curve Secp256k1. \\
+\indent \textbf{Description:} EC Uncompressed Public key on the curve Secp256k1. \\
 
 \begin{bytefield}[bitwidth=1.1em]{32}
 			
@@ -454,115 +454,142 @@ Associative Arrays are just like untyped arrays with the condition that every el
 \textbf{RSA Public Key} \\
 \indent \textbf{Id:} 13 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} RSA Public Key. The modulus of the RSA signature. \\
+\indent \textbf{Description:} RSA Public Key. The modulus of the RSA signature. \\
 
 \noindent
 \textbf{Stub Public Key} \\
 \indent \textbf{Id:} 14 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} A stub public key used for development. \\
+\indent \textbf{Description:} A stub public key used for development. \\
 
 \noindent
 \textbf{Stub Hash} \\
 \indent \textbf{Id:} 15 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} A stub hash used for development. \\
+\indent \textbf{Description:} A stub hash used for development. \\
 
 \noindent
 \textbf{SHA 256} \\
 \indent \textbf{Id:} 16 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} A SHA 256 Hash. \\
+\indent \textbf{Description:} A SHA 256 Hash. \\
 
 \noindent
 \textbf{SHA 3} \\
 \indent \textbf{Id:} 17 \\
 \indent \textbf{Iterable:} False \\
-\indent \textbf{Descreption:} A SHA 3 Hash. \\
+\indent \textbf{Description:} A SHA 3 Hash. \\
 
 \noindent
 \textbf{GPS} \\
 \indent \textbf{Id:} 18 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} GPS Location, associative array of [Latitude, Longitude]. \\
+\indent \textbf{Description:} GPS Location, associative array of [Latitude, Longitude]. \\
 
 \noindent
 \textbf{RSSI} \\
 \indent \textbf{Id:} 19 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} RSSI of the Bluetooth Connection. A signed byte. \\
+\indent \textbf{Description:} RSSI of the Bluetooth Connection. A signed byte. \\
 
 \noindent
 \textbf{Unix Time} \\
 \indent \textbf{Id:} 20 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} The Unix time of the bound witness in milliseconds. Number format: Unsigned Long. \\
+\indent \textbf{Description:} The Unix time of the bound witness in milliseconds. Number format: Unsigned Long. \\
 
 \noindent
 \textbf{Fetter} \\
 \indent \textbf{Id:} 21 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} A bound witness fetter. \\
+\indent \textbf{Description:} A bound witness fetter. \\
 
 \noindent
 \textbf{Fetter Set} \\
 \indent \textbf{Id:} 22 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} A set of fetters. \\
+\indent \textbf{Description:} A set of fetters. \\
 
 \noindent
 \textbf{Witness} \\
 \indent \textbf{Id:} 23 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} A bound witness witness. \\
+\indent \textbf{Description:} A bound witness witness. \\
 
 \noindent
 \textbf{Witness Set} \\
 \indent \textbf{Id:} 24 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} A set of witnesses. \\
+\indent \textbf{Description:} A set of witnesses. \\
 
 \noindent
 \textbf{Key Set} \\
 \indent \textbf{Id:} 25 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} A set of public keys. \\
+\indent \textbf{Description:} A set of public keys. \\
 
 \noindent
 \textbf{Signature Set} \\
 \indent \textbf{Id:} 26 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} A set of signatures. \\
+\indent \textbf{Description:} A set of signatures. \\
 
 \noindent
 \textbf{Bound Witness Fragment} \\
 \indent \textbf{Id:} 27 \\
 \indent \textbf{Iterable:} Yes \\
-\indent \textbf{Descreption:} A witnesses and fetters. \\
+\indent \textbf{Description:} A witnesses and fetters. \\
 
 \noindent
 \textbf{Latitude} \\
 \indent \textbf{Id:} 28 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} Latitude. Number format: Signed Double.\\
+\indent \textbf{Description:} Latitude. Number format: Signed Double.\\
 
 \noindent
 \textbf{Longitude} \\
 \indent \textbf{Id:} 29 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} Longitude. Number format: Signed Double. \\
+\indent \textbf{Description:} Longitude. Number format: Signed Double. \\
 
 \noindent
 \textbf{RSSI at 1m} \\
 \indent \textbf{Id:} 30 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} RSSI at 1m, signed byte.  \\
+\indent \textbf{Description:} RSSI at 1m, signed byte.  \\
+
+\noindent
+\textbf{Manufacturer Data} \\
+\indent \textbf{Id:} 31 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Description:} Manufacturer ID and Product ID.  \\
+
+\begin{bytefield}[bitwidth=4.4em]{8}
+			
+	\bitheader{0-7} \\
+	\bitbox{2}{Manufacturer ID} 
+	\bitbox[tr]{6}{Manufacturer Data} \\
+	\wordbox[blr]{2}{$\cdots$} \\
+
+\end{bytefield}
+
+\noindent
+\textbf{Node Type Identification} \\
+\indent \textbf{Id:} 32 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Description:} Differentiate Sentinel (0x00), Bridge (0x01), Archivist (0x02), and Diviner (0x03).\\
+
+\noindent
+\textbf{Version} \\
+\indent \textbf{Id:} 33 \\
+\indent \textbf{Iterable:} No \\
+\indent \textbf{Description:} Generic version identifier.  \\
 
 \noindent
 \textbf{JSON Blob} \\
 \indent \textbf{Id:} 254 \\
 \indent \textbf{Iterable:} No \\
-\indent \textbf{Descreption:} An arbitrary json blob \\
+\indent \textbf{Description:} An arbitrary json blob \\
 
 
 \end{document}
