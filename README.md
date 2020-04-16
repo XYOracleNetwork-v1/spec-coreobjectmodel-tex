@@ -8,6 +8,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/945b869c0d214489a4fc0c4ef0e8cab7)](https://www.codacy.com/gh/XYOracleNetwork/spec-coreobjectmodel-tex?utm_source=github.com&utm_medium=referral&utm_content=XYOracleNetwork/spec-coreobjectmodel-tex&utm_campaign=Badge_Grade)
 
+> The XYO Foundation provides this source code available in our efforts to advance the understanding of the XYO Procotol and its possible uses. We continue to maintain this software in the interest of developer education. Usage of this source code is not intended for production.
 
 ## Table of Contents
 
